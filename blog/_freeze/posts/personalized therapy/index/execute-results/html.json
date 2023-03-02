@@ -1,0 +1,14 @@
+{
+  "hash": "d0df322b147f1fbc40efdb04e45ed1aa",
+  "result": {
+    "markdown": "---\ntitle: \"Publication:In silico Antibody-Peptide Epitope prediction for Personalized cancer therapy\"\nauthor: \"Ivan Jacobs\"\ndate: \"2023-03-02\"\ncategories: [Personalized therapy, networks, machine learning]\nimage: \"Figure 2.jpeg\"\n---\n\n\n# In silico Antibody-Peptide Epitope prediction for Personalized cancer therapy\n\n\n::: {.cell}\n\n```{.r .cell-code}\n1 + 1\n```\n\n::: {.cell-output .cell-output-stdout}\n```\n[1] 2\n```\n:::\n:::\n",
+    "supporting": [],
+    "filters": [
+      "rmarkdown/pagebreak.lua"
+    ],
+    "includes": {},
+    "engineDependencies": {},
+    "preserve": {},
+    "postProcess": true
+  }
+}

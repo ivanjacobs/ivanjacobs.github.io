@@ -1,0 +1,28 @@
+project:
+  type: website
+  output-dir: docs
+
+website:
+  favicon: profile.jpg
+  image: profile.jpg
+  twitter-card: true
+  title: "Ivan Jacobs"
+  open-graph: true
+  site-url: https://ivanjacobs.github.io/
+  description: "Ivan Jacobs blog"
+  navbar:
+    right:
+      - about.qmd
+      - icon: twitter
+        href: https://twitter.com/IvanJac20353450
+      - icon: linkedin
+        href: https://www.linkedin.com/in/ivanjacobs/
+      - icon: github
+        href: https://github.com/ivanjacobs
+format:
+  html:
+    theme: lumen
+    css: styles.css
+
+editor: visual
+

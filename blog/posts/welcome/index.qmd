@@ -1,0 +1,10 @@
+---
+title: "Welcome To My Blog"
+author: "Ivan Jacobs"
+date: "2023-02-27"
+categories: [news]
+---
+
+Welcome!
+
+Hi, this is Ivan. I'm documenting my research journey here
