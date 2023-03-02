@@ -55,3 +55,18 @@ $${#eq-ELBO}
 
 
 where $q$ is an arbitrary probability distribution over $z$. The difference between the expectation $\log p(v)$ and $\mathcal{L}(v,\theta,q)$ is given by the KL divergence that is always positive. We can conclude that $\mathcal{L}$ has at most the same value as the desired log-probability. If the two are equal $q$ has the same distribution as $p(z|v)$
+
+We can rearrange $\mathcal{L}$ into:
+$$
+\begin{aligned}
+\mathcal{L}(v,\theta,q)=\log p(v;\theta) - D_{KL}(q(z|v)||p(z|v;\theta))
+\\
+=\log p(v;\theta) - \mathbb{E}_{z\sim q}\log \frac{q(z|v)}{p(z|v)}
+\\
+=\log p(v;\theta) - \mathbb{E}_{z\sim q}\log \frac{q(z|v)}{\frac{p(h,v;\theta)}{p(v;\theta)}}
+\\
+=\log p(v;\theta) - \mathbb{E}_{z\sim q} \left[\log q(z|v)-\log p(z,v;\theta) + \log p(v;\theta) \right]
+\\
+=-\mathbb{E}_{z\sim q} \left[\log q(h|v) - \log p(z,v;\theta) \right]
+\end{aligned}
+$${#eq-ELBO-rearanged}
