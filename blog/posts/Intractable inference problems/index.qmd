@@ -57,16 +57,24 @@ $${#eq-ELBO}
 where $q$ is an arbitrary probability distribution over $z$. The difference between the expectation $\log p(v)$ and $\mathcal{L}(v,\theta,q)$ is given by the KL divergence that is always positive. We can conclude that $\mathcal{L}$ has at most the same value as the desired log-probability. If the two are equal $q$ has the same distribution as $p(z|v)$
 
 We can rearrange $\mathcal{L}$ into:
+
 $$
 \begin{aligned}
 \mathcal{L}(v,\theta,q)=\log p(v;\theta) - D_{KL}(q(z|v)||p(z|v;\theta))
 \\
 =\log p(v;\theta) - \mathbb{E}_{z\sim q}\log \frac{q(z|v)}{p(z|v)}
 \\
-=\log p(v;\theta) - \mathbb{E}_{z\sim q}\log \frac{q(z|v)}{\frac{p(h,v;\theta)}{p(v;\theta)}}
+=\log p(v;\theta) - \mathbb{E}_{z\sim q}\log \frac{q(z|v)}{\frac{p(z,v;\theta)}{p(v;\theta)}}
 \\
 =\log p(v;\theta) - \mathbb{E}_{z\sim q} \left[\log q(z|v)-\log p(z,v;\theta) + \log p(v;\theta) \right]
 \\
-=-\mathbb{E}_{z\sim q} \left[\log q(h|v) - \log p(z,v;\theta) \right]
-\end{aligned}
-$${#eq-ELBO-rearanged}
+=-\mathbb{E}_{z\sim q} \left[\log q(z|v) - \log p(z,v;\theta) \right]
+\end{aligned}$${#eq-ELBO-rearanged}
+
+Hence a more canonical definition of the evidence lower bound can be defined as:
+$$
+\begin{aligned}
+\mathcal{L}(v,\theta,q)=\mathbb{E}_{z\sim q} \left[\log p(z,v)\right]+ H(q)
+\end{aligned}$${#eq-ELBO-canon}
+
+For an appropriate choice of $q,\mathcal{L}$ is tractable. For $q(z|v)$ that approximates $p(z|v)$ better, the lower bound $\mathcal{L}$ is closer to $\log p(v)$. When $q(z|v)=p(z|v)$, the approximation is perfect, hence, $\mathcal{L}=\log p(v;\theta)$. Thus, we can think of variational inference as the procedure of finding $q$ that maximizes $\mathcal{L}$.

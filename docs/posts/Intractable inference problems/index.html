@@ -195,19 +195,24 @@ D_{KL}(q(z)|| p(z|v;\theta))
 \end{aligned}
 \tag{8}\]</span></span></p>
 <p>where <span class="math inline">\(q\)</span> is an arbitrary probability distribution over <span class="math inline">\(z\)</span>. The difference between the expectation <span class="math inline">\(\log p(v)\)</span> and <span class="math inline">\(\mathcal{L}(v,\theta,q)\)</span> is given by the KL divergence that is always positive. We can conclude that <span class="math inline">\(\mathcal{L}\)</span> has at most the same value as the desired log-probability. If the two are equal <span class="math inline">\(q\)</span> has the same distribution as <span class="math inline">\(p(z|v)\)</span></p>
-<p>We can rearrange <span class="math inline">\(\mathcal{L}\)</span> into: <span id="eq-ELBO-rearanged"><span class="math display">\[
+<p>We can rearrange <span class="math inline">\(\mathcal{L}\)</span> into:</p>
+<p><span id="eq-ELBO-rearanged"><span class="math display">\[
 \begin{aligned}
 \mathcal{L}(v,\theta,q)=\log p(v;\theta) - D_{KL}(q(z|v)||p(z|v;\theta))
 \\
 =\log p(v;\theta) - \mathbb{E}_{z\sim q}\log \frac{q(z|v)}{p(z|v)}
 \\
-=\log p(v;\theta) - \mathbb{E}_{z\sim q}\log \frac{q(z|v)}{\frac{p(h,v;\theta)}{p(v;\theta)}}
+=\log p(v;\theta) - \mathbb{E}_{z\sim q}\log \frac{q(z|v)}{\frac{p(z,v;\theta)}{p(v;\theta)}}
 \\
 =\log p(v;\theta) - \mathbb{E}_{z\sim q} \left[\log q(z|v)-\log p(z,v;\theta) + \log p(v;\theta) \right]
 \\
-=-\mathbb{E}_{z\sim q} \left[\log q(h|v) - \log p(z,v;\theta) \right]
-\end{aligned}
-\tag{9}\]</span></span></p>
+=-\mathbb{E}_{z\sim q} \left[\log q(z|v) - \log p(z,v;\theta) \right]
+\end{aligned} \tag{9}\]</span></span></p>
+<p>Hence a more canonical definition of the evidence lower bound can be defined as: <span id="eq-ELBO-canon"><span class="math display">\[
+\begin{aligned}
+\mathcal{L}(v,\theta,q)=\mathbb{E}_{z\sim q} \left[\log p(z,v)\right]+ H(q)
+\end{aligned} \tag{10}\]</span></span></p>
+<p>For an appropriate choice of <span class="math inline">\(q,\mathcal{L}\)</span> is tractable. For <span class="math inline">\(q(z|v)\)</span> that approximates <span class="math inline">\(p(z|v)\)</span> better, the lower bound <span class="math inline">\(\mathcal{L}\)</span> is closer to <span class="math inline">\(\log p(v)\)</span>. When <span class="math inline">\(q(z|v)=p(z|v)\)</span>, the approximation is perfect, hence, <span class="math inline">\(\mathcal{L}=\log p(v;\theta)\)</span>. Thus, we can think of variational inference as the procedure of finding <span class="math inline">\(q\)</span> that maximizes <span class="math inline">\(\mathcal{L}\)</span></p>
 
 
 
