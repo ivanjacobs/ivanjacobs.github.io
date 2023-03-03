@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.0.27">
+<meta name="generator" content="quarto-1.2.269">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -13,10 +13,15 @@
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
-span.underline{text-decoration: underline;}
-div.column{display: inline-block; vertical-align: top; width: 50%;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
 div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
 ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1.6em;
+  vertical-align: middle;
+}
 </style>
 
 
@@ -83,31 +88,34 @@ gtag('config', 'G-LER7N2QH22', { 'anonymize_ip': true});
   <header id="quarto-header" class="headroom fixed-top">
     <nav class="navbar navbar-expand-lg navbar-dark ">
       <div class="navbar-container container-fluid">
-      <a class="navbar-brand" href="../../index.html">
+      <div class="navbar-brand-container">
+    <a class="navbar-brand" href="../../index.html">
     <span class="navbar-title">Ivan Jacobs</span>
-  </a>
+    </a>
+  </div>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
   <span class="navbar-toggler-icon"></span>
 </button>
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll ms-auto">
   <li class="nav-item">
-    <a class="nav-link" href="../../about.html">About</a>
+    <a class="nav-link" href="../../about.html">
+ <span class="menu-text">About</span></a>
   </li>  
   <li class="nav-item compact">
     <a class="nav-link" href="https://twitter.com/IvanJac20353450"><i class="bi bi-twitter" role="img">
 </i> 
- </a>
+ <span class="menu-text"></span></a>
   </li>  
   <li class="nav-item compact">
     <a class="nav-link" href="https://www.linkedin.com/in/ivanjacobs/"><i class="bi bi-linkedin" role="img">
 </i> 
- </a>
+ <span class="menu-text"></span></a>
   </li>  
   <li class="nav-item compact">
     <a class="nav-link" href="https://github.com/ivanjacobs"><i class="bi bi-github" role="img">
 </i> 
- </a>
+ <span class="menu-text"></span></a>
   </li>  
 </ul>
               <div id="quarto-search" class="" title="Search"></div>
@@ -143,6 +151,7 @@ gtag('config', 'G-LER7N2QH22', { 'anonymize_ip': true});
         <p class="date">March 2, 2023</p>
       </div>
     </div>
+    
       
     </div>
     
@@ -162,42 +171,42 @@ gtag('config', 'G-LER7N2QH22', { 'anonymize_ip': true});
 <p>Intractable inference in deep learning arises from the connections between the activations generated from the multitude of layers that create either mutual ancestors or large cliques of activations. In order to solve the intractable inference problem we may approach it as an optimization problem and derive approximate inference algorithms that will approximate the underlying exact inference optimization.</p>
 <p>To define an optimization problem we can assume that we have an observed data <span class="math inline">\(v\)</span> that is a realization of a random variable <span class="math inline">\(V\)</span>. We put forward the existence of another random variable <span class="math inline">\(Z\)</span> and <span class="math inline">\(V\)</span> and <span class="math inline">\(Z\)</span> are distributed according a joint distribution <span class="math inline">\(p(X,Z;\theta)\)</span> where <span class="math inline">\(\theta\)</span> parameterizes the distribution. The joint distribution indicates that <span class="math inline">\(Z\)</span> and <span class="math inline">\(V\)</span> are strongly correlated. Suppose <span class="math inline">\(m_z,m_v\)</span> are the means of <span class="math inline">\(z\)</span> and <span class="math inline">\(v\)</span> and are known, then we might be interested in the <span class="math inline">\(\sigma_{zv}\)</span> the covariance that measures the connection of <span class="math inline">\(z\)</span> and <span class="math inline">\(v\)</span>. <span id="eq-covariance"><span class="math display">\[\sigma_{zv}=E[(z-m_z)(v-m_v)] \tag{1}\]</span></span></p>
 <p>Hence, to compute <span class="math inline">\(\sigma_{zv}\)</span> it is not enough to know the probability of <span class="math inline">\(z\)</span> and the probability of each <span class="math inline">\(v\)</span> but the joint probability of each pair <span class="math inline">\(z\)</span> and <span class="math inline">\(v\)</span>.</p>
-Suppose we run separate 2 experiments, the covariance between experiments for all pairs of <span class="math inline">\(z_i\)</span> and <span class="math inline">\(v_j\)</span> then equation (<a href="#eq-covariance">Equation&nbsp;1</a>)looks like: $$
-<span class="math display">\[\begin{aligned}
+<p>Suppose we run separate 2 experiments, the covariance between experiments for all pairs of <span class="math inline">\(z_i\)</span> and <span class="math inline">\(v_j\)</span> then equation (<a href="#eq-covariance">Equation&nbsp;1</a>)looks like:<span id="eq-covariance-12exp"><span class="math display">\[
+\begin{aligned}
 \sigma_{12}=E([(z-m_1)(v-m_2)])
 \\
 \sigma_{12}=\sum_{all}\sum_{ij}p_{ij}(z_i-m_1)(y_j-m_2)
-\end{aligned}\]</span>
-<p><span class="math display">\[ {#eq-covariance-12exp} But $v$ is a realization from $V$ and not from $Z$ and therefor $z$ remains "latent" i.e. not observed. We might be interested in either computing the posteriour distribution $p(Z|V;\theta)$ given a fixed $\theta$ or finding the maximum likelihood $argmaxv_{\theta}l(\theta)$ where $l(\theta)$ is the log-likelihood function given an unknown $\theta$ defined by: \]</span></p>
-<p>l():=p(v;)=_{z}p(v,z;)dz</p>
-<p><span class="math display">\[ {#eq-log-likelihood} We could envisage to compute the log-probability of the observed variable $v$ $\log p(v;\theta)$ but sometimes it is is to costly to marginalize out $h$ and this computation becomes difficult. Instead we can compute the evidence lower bound (ELBO) or variatonal free energy $\mathcal{L}(v,\theta,q)$ on $\log(v;\theta)$. The evidence, in evidence lower bound, is the likelihood evaluated at a fixed $\theta$ : \]</span></p>
-<p>evidence:p(v;)</p>
-<p>$$ {#eq-evidence}</p>
+\end{aligned}
+\tag{2}\]</span></span> But <span class="math inline">\(v\)</span> is a realization from <span class="math inline">\(V\)</span> and not from <span class="math inline">\(Z\)</span> and therefor <span class="math inline">\(z\)</span> remains “latent” i.e.&nbsp;not observed. We might be interested in either computing the posteriour distribution <span class="math inline">\(p(Z|V;\theta)\)</span> given a fixed <span class="math inline">\(\theta\)</span> or finding the maximum likelihood <span class="math inline">\(argmaxv_{\theta}l(\theta)\)</span> where <span class="math inline">\(l(\theta)\)</span> is the log-likelihood function given an unknown <span class="math inline">\(\theta\)</span> defined by: <span id="eq-log-likelihood"><span class="math display">\[
+l(\theta):=\log p(v;\theta)=\log\int_{z}p(v,z;\theta)dz
+\tag{3}\]</span></span> We could envisage to compute the log-probability of the observed variable <span class="math inline">\(v\)</span> <span class="math inline">\(\log p(v;\theta)\)</span> but sometimes it is is to costly to marginalize out <span class="math inline">\(h\)</span> and this computation becomes difficult. Instead we can compute the evidence lower bound (ELBO) or variatonal free energy <span class="math inline">\(\mathcal{L}(v,\theta,q)\)</span> on <span class="math inline">\(\log(v;\theta)\)</span>. The evidence, in evidence lower bound, is the likelihood evaluated at a fixed <span class="math inline">\(\theta\)</span> : <span id="eq-evidence"><span class="math display">\[
+evidence:\log p(v;\theta)
+\tag{4}\]</span></span></p>
 <p>Hence, if we have approximated <span class="math inline">\(\theta\)</span> well enough through our optimization approach we would expect that the marginal probability of the observed variable <span class="math inline">\(v\)</span> will be high. The evidence thus quantifies the quality of the approximation of <span class="math inline">\(p_{model}\)</span> parameterized by <span class="math inline">\(\theta\)</span> of <span class="math inline">\(p_{data}\)</span> i.e.&nbsp;<span class="math inline">\(p_{model}(z|v;\theta)\approx p_{data}(z|v)\)</span>.</p>
 <p>If we consider that <span class="math inline">\(Z\)</span> follows an arbitrary probability distribution <span class="math inline">\(q\)</span> and that the joint distribution <span class="math inline">\(p(v,z;\theta):=p(v|z;\theta)q(z)\)</span>, then the evidence lower bound is the lower bound on the evidence that makes use of <span class="math inline">\(q\)</span>. Concretely : <span id="eq-elbo-log"><span class="math display">\[
 \begin{aligned}
 \log p(v;\theta)\ge \mathbb{E}_{z\sim q}\left[ \log \frac{p(v;z;\theta)}{q(z)} \right]
 \end{aligned}
-\tag{2}\]</span></span> where ELBO is the right-hand side of <a href="#eq-elbo-log">Equation&nbsp;2</a></p>
+\tag{5}\]</span></span> where ELBO is the right-hand side of <a href="#eq-elbo-log">Equation&nbsp;5</a></p>
 <p><span id="eq-elbo-elb"><span class="math display">\[
 \begin{aligned}
 ELBO:= \mathbb{E}_{z\sim q}\left[ \log \frac{p(v;z;\theta)}{q(z)} \right]
 \end{aligned}
-\tag{3}\]</span></span></p>
-The gap between the the evidence and the ELBO is the <a href="https://en.wikipedia.org/wiki/Kullback%E2%80%93Leibler_divergence">Kullback-Leibler divergence</a> between <span class="math inline">\(p(z|v;\theta)\)</span>. $$
-<span class="math display">\[\begin{aligned}
+\tag{6}\]</span></span></p>
+<p>The gap between the the evidence and the ELBO is the <a href="https://en.wikipedia.org/wiki/Kullback%E2%80%93Leibler_divergence">Kullback-Leibler divergence</a> between <span class="math inline">\(p(z|v;\theta)\)</span>. <span id="eq-KL-div"><span class="math display">\[
+\begin{aligned}
 D_{KL}(q(z)|| p(z|v;\theta))
-\end{aligned}\]</span>
-<p>$$ {#eq-KL-div} This lays the basis of the approximation approach called variational inference where we learn to infer <span class="math inline">\(q\)</span> through optimization algorithm. As long as <span class="math inline">\(z\)</span> is continuous, we can back-propagate through samples of <span class="math inline">\(z\)</span> dawn from <span class="math inline">\(q(z|v)=q(z;f(v;\theta))\)</span> to obtain a gradient with respect to <span class="math inline">\(\theta\)</span> in order to maximize <span class="math inline">\(\mathcal{L}(v,\theta,q)\)</span>. We can write <span class="math inline">\(\mathcal{L}(v,\theta,q)\)</span> as:</p>
-<p>$$</p>
-<span class="math display">\[\begin{aligned}
+\end{aligned}
+\tag{7}\]</span></span> This lays the basis of the approximation approach called variational inference where we learn to infer <span class="math inline">\(q\)</span> through optimization algorithm. As long as <span class="math inline">\(z\)</span> is continuous, we can back-propagate through samples of <span class="math inline">\(z\)</span> dawn from <span class="math inline">\(q(z|v)=q(z;f(v;\theta))\)</span> to obtain a gradient with respect to <span class="math inline">\(\theta\)</span> in order to maximize <span class="math inline">\(\mathcal{L}(v,\theta,q)\)</span>. We can write <span class="math inline">\(\mathcal{L}(v,\theta,q)\)</span> as:</p>
+<p><span id="eq-ELBO"><span class="math display">\[
+\begin{aligned}
 \mathcal{L}(v,\theta,q)=\log p(v;\theta) - D_{KL}(q(z|v)||p(z|v;\theta))
-\end{aligned}\]</span>
-<p>$${#eq-ELBO}</p>
+\end{aligned}
+\tag{8}\]</span></span></p>
 <p>where <span class="math inline">\(q\)</span> is an arbitrary probability distribution over <span class="math inline">\(z\)</span>. The difference between the expectation <span class="math inline">\(\log p(v)\)</span> and <span class="math inline">\(\mathcal{L}(v,\theta,q)\)</span> is given by the KL divergence that is always positive. We can conclude that <span class="math inline">\(\mathcal{L}\)</span> has at most the same value as the desired log-probability. If the two are equal <span class="math inline">\(q\)</span> has the same distribution as <span class="math inline">\(p(z|v)\)</span></p>
 <p>We can rearrange <span class="math inline">\(\mathcal{L}\)</span> into:</p>
-<p>$$</p>
-<span class="math display">\[\begin{aligned}
+<p><span id="eq-ELBO-rearanged"><span class="math display">\[
+\begin{aligned}
 \mathcal{L}(v,\theta,q)=\log p(v;\theta) - D_{KL}(q(z|v)||p(z|v;\theta))
 \\
 =\log p(v;\theta) - \mathbb{E}_{z\sim q}\log \frac{q(z|v)}{p(z|v)}
@@ -207,13 +216,11 @@ D_{KL}(q(z)|| p(z|v;\theta))
 =\log p(v;\theta) - \mathbb{E}_{z\sim q} \left[\log q(z|v)-\log p(z,v;\theta) + \log p(v;\theta) \right]
 \\
 =-\mathbb{E}_{z\sim q} \left[\log q(z|v) - \log p(z,v;\theta) \right]
-\end{aligned}\]</span>
-<p>$${#eq-ELBO-rearanged}</p>
-<p>Hence a more canonical definition of the evidence lower bound can be defined as:</p>
-<p><span id="eq-ELBO-canon"><span class="math display">\[
+\end{aligned} \tag{9}\]</span></span></p>
+<p>Hence a more canonical definition of the evidence lower bound can be defined as: <span id="eq-ELBO-canon"><span class="math display">\[
 \begin{aligned}
 \mathcal{L}(v,\theta,q)=\mathbb{E}_{z\sim q} \left[\log p(z,v)\right]+ H(q)
-\end{aligned} \tag{4}\]</span></span></p>
+\end{aligned} \tag{10}\]</span></span></p>
 <p>For an appropriate choice of <span class="math inline">\(q,\mathcal{L}\)</span> is tractable. For <span class="math inline">\(q(z|v)\)</span> that approximates <span class="math inline">\(p(z|v)\)</span> better, the lower bound <span class="math inline">\(\mathcal{L}\)</span> is closer to <span class="math inline">\(\log p(v)\)</span>. When <span class="math inline">\(q(z|v)=p(z|v)\)</span>, the approximation is perfect, hence, <span class="math inline">\(\mathcal{L}=\log p(v;\theta)\)</span>. Thus, we can think of variational inference as the procedure of finding <span class="math inline">\(q\)</span> that maximizes <span class="math inline">\(\mathcal{L}\)</span>.</p>
 
 
@@ -260,7 +267,24 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     button.classList.add('code-copy-button-checked');
     var currentTitle = button.getAttribute("title");
     button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
     setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
       button.setAttribute("title", currentTitle);
       button.classList.remove('code-copy-button-checked');
     }, 1000);
@@ -288,31 +312,50 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   for (var i=0; i<noterefs.length; i++) {
     const ref = noterefs[i];
     tippyHover(ref, function() {
-      let href = ref.getAttribute('href');
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
       try { href = new URL(href).hash; } catch {}
       const id = href.replace(/^#\/?/, "");
       const note = window.document.getElementById(id);
       return note.innerHTML;
     });
   }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
   var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
   for (var i=0; i<bibliorefs.length; i++) {
     const ref = bibliorefs[i];
-    const cites = ref.parentNode.getAttribute('data-cites').split(' ');
-    tippyHover(ref, function() {
-      var popup = window.document.createElement('div');
-      cites.forEach(function(cite) {
-        var citeDiv = window.document.createElement('div');
-        citeDiv.classList.add('hanging-indent');
-        citeDiv.classList.add('csl-entry');
-        var biblioDiv = window.document.getElementById('ref-' + cite);
-        if (biblioDiv) {
-          citeDiv.innerHTML = biblioDiv.innerHTML;
-        }
-        popup.appendChild(citeDiv);
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
       });
-      return popup.innerHTML;
-    });
+    }
   }
 });
 </script>
