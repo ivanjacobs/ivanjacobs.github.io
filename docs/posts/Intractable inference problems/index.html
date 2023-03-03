@@ -61,6 +61,15 @@ ul.task-list li input[type="checkbox"] {
     "search-submit-button-title": "Submit"
   }
 }</script>
+<script async="" src="https://www.googletagmanager.com/gtag/js?id=GTM-PPJQDZX"></script>
+
+<script type="text/javascript">
+
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'GTM-PPJQDZX', { 'anonymize_ip': true});
+</script>
 
   <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
@@ -212,7 +221,7 @@ D_{KL}(q(z)|| p(z|v;\theta))
 \begin{aligned}
 \mathcal{L}(v,\theta,q)=\mathbb{E}_{z\sim q} \left[\log p(z,v)\right]+ H(q)
 \end{aligned} \tag{10}\]</span></span></p>
-<p>For an appropriate choice of <span class="math inline">\(q,\mathcal{L}\)</span> is tractable. For <span class="math inline">\(q(z|v)\)</span> that approximates <span class="math inline">\(p(z|v)\)</span> better, the lower bound <span class="math inline">\(\mathcal{L}\)</span> is closer to <span class="math inline">\(\log p(v)\)</span>. When <span class="math inline">\(q(z|v)=p(z|v)\)</span>, the approximation is perfect, hence, <span class="math inline">\(\mathcal{L}=\log p(v;\theta)\)</span>. Thus, we can think of variational inference as the procedure of finding <span class="math inline">\(q\)</span> that maximizes <span class="math inline">\(\mathcal{L}\)</span></p>
+<p>For an appropriate choice of <span class="math inline">\(q,\mathcal{L}\)</span> is tractable. For <span class="math inline">\(q(z|v)\)</span> that approximates <span class="math inline">\(p(z|v)\)</span> better, the lower bound <span class="math inline">\(\mathcal{L}\)</span> is closer to <span class="math inline">\(\log p(v)\)</span>. When <span class="math inline">\(q(z|v)=p(z|v)\)</span>, the approximation is perfect, hence, <span class="math inline">\(\mathcal{L}=\log p(v;\theta)\)</span>. Thus, we can think of variational inference as the procedure of finding <span class="math inline">\(q\)</span> that maximizes <span class="math inline">\(\mathcal{L}\)</span>.</p>
 
 
 
