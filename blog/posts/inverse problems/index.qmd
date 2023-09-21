@@ -1,0 +1,19 @@
+---
+title: "Solving Inverse Problems with score based generative modeling"
+author: "Ivan Jacobs"
+date: "2023-03-02"
+categories: [Solving Inverse Problems]
+bibliography: references.bib
+---
+
+## [@song]
+
+# Background
+
+## Linear inverse problems
+
+An inverse problem seeks to recover unobserved causal factors from a set of observed measurements.If $x \in \mathbb{R}^n$ is an unknown signal and $y \in \mathbb{R}^m=Ax+\epsilon$ is a noisy observation with $m$ linear measurements and $A\in \mathbb{R}^{m\times n}$ is a linear operator and $\epsilon \in \mathbb{R^n}$ is a noise vector. Solving the inverse problem constitutes of recovering $x$ from its measurement $y$. There is the assumption that $x$ is sampled from a prior $p(x)$ and as such the measurement and signal are connected trough a the measurement distribution $p(y|x)=q_{\epsilon}(y-Ax)$ with $q_{\epsilon}$ being the noise distribution of $\epsilon$. Given $p(y|x)$ and $p(x)$ the inverse problem can be solved by sampling from the posterior distribution $p(x|y)$.
+
+
+## Score-based generative models
+When solving an inverse problem we are given an observation $y$, a measurement distribution $p(y|x)$ and wish to sample from the posterior distribution $p(x|y)$. The prior distribition $p(x)$ is usually not known but we can use a generative model on a dataset $ \{x_1,x_2 ...x_n\} \sim p(x)$ to estimate the prior distribution. The posterior distribution $p(x|y)$ can be determined through Bayes' rule. 

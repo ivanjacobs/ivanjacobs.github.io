@@ -2,14 +2,14 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.2.269">
+<meta name="generator" content="quarto-1.2.335">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Ivan Jacobs">
 <meta name="dcterms.date" content="2023-03-02">
 
-<title>Ivan Jacobs - Publication:In silico Antibody-Peptide Epitope prediction for Personalized cancer therapy</title>
+<title>Ivan Jacobs - Solving Inverse Problems with score based generative modeling</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -21,6 +21,25 @@ ul.task-list li input[type="checkbox"] {
   width: 0.8em;
   margin: 0 0.8em 0.2em -1.6em;
   vertical-align: middle;
+}
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
 }
 </style>
 
@@ -71,16 +90,13 @@ gtag('js', new Date());
 gtag('config', 'G-LER7N2QH22', { 'anonymize_ip': true});
 </script>
 
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
 <link rel="stylesheet" href="../../styles.css">
-<meta property="og:title" content="Ivan Jacobs - Publication:In silico Antibody-Peptide Epitope prediction for Personalized cancer therapy">
-<meta property="og:description" content="The human leukocyte antigen (HLA) system is a complex of genes on chromosome 6 in humans that encodes cell-surface proteins responsible for regulating the immune system.">
-<meta property="og:image" content="https://ivanjacobs.github.io/posts\personalized therapy\Figure 2.jpeg">
+<meta property="og:title" content="Ivan Jacobs - Solving Inverse Problems with score based generative modeling">
 <meta property="og:site-name" content="Ivan Jacobs">
-<meta name="twitter:title" content="Ivan Jacobs - Publication:In silico Antibody-Peptide Epitope prediction for Personalized cancer therapy">
-<meta name="twitter:description" content="The human leukocyte antigen (HLA) system is a complex of genes on chromosome 6 in humans that encodes cell-surface proteins responsible for regulating the immune system.">
-<meta name="twitter:image" content="https://ivanjacobs.github.io/posts\personalized therapy\Figure 2.jpeg">
-<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Ivan Jacobs - Solving Inverse Problems with score based generative modeling">
+<meta name="twitter:card" content="summary">
 </head>
 
 <body class="nav-fixed fullcontent">
@@ -128,11 +144,9 @@ gtag('config', 'G-LER7N2QH22', { 'anonymize_ip': true});
 <header id="title-block-header" class="quarto-title-block default page-columns page-full">
   <div class="quarto-title-banner page-columns page-full">
     <div class="quarto-title column-body">
-      <h1 class="title">Publication:In silico Antibody-Peptide Epitope prediction for Personalized cancer therapy</h1>
+      <h1 class="title">Solving Inverse Problems with score based generative modeling</h1>
                                 <div class="quarto-categories">
-                <div class="quarto-category">Personalized therapy</div>
-                <div class="quarto-category">networks</div>
-                <div class="quarto-category">machine learning</div>
+                <div class="quarto-category">Solving Inverse Problems</div>
               </div>
                   </div>
   </div>
@@ -168,43 +182,29 @@ gtag('config', 'G-LER7N2QH22', { 'anonymize_ip': true});
 
 
 
-<section id="in-silico-antibody-peptide-epitope-prediction-for-personalized-cancer-therapy" class="level1">
-<h1>In silico Antibody-Peptide Epitope prediction for Personalized cancer therapy</h1>
-<p>The human leukocyte antigen (HLA) system is a complex of genes on chromosome 6 in humans that encodes cell-surface proteins responsible for regulating the immune system. Viral peptides presented to cancer cell surfaces by the HLA trigger the immune system to kill the cells, creating Antibody-peptide epitopes (APE). This study proposes an in-silico approach to identify patient-specific APEs by applying complex networks diagnostics on a novel multiplex data structure as input for a deep learning model. The proposed analytical model identifies patient and tumor-specific APEs with as few as 20 labeled data points.</p>
-<p>Additionally, the proposed data structure employs complex network theory and other statistical approaches that can better explain and reduce the black box effect of deep learning. The proposed approach achieves an F1-score of 80\% and 93\% on patients one and two respectively and above 90\% on tumor-specific tasks. Additionally, it minimizes the required training time and the number of parameters.</p>
-<p>The human leukocyte antigen (HLA) system or complex is a complex of genes on chromosome 6 in humans that encode cell-surface proteins responsible for regulating the immune system. The HLA system also known as the human version of the major histocompatibility complex (MHC) is found in many animals.</p>
-<p>HLA genes are highly polymorphic, which means that there are thousands of different forms of these genes called alleles, allowing them to fine-tune the adaptive immune system. The proteins encoded by certain genes are also known as antigens, because of their historic discovery as factors in organ transplants.</p>
-<p>As shown in Figure \ref{fig:1} HLA’s proteins present viral peptides from inside the cell to the surface of the cell. For example, if the cell is infected by a virus or is cancerous, the HLA system brings abnormal fragments, called peptides, to the surface of the cell so that the cell can be destroyed by the immune system.</p>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="Figure 1.jpeg" class="img-fluid figure-img" width="300"></p>
-<p></p><figcaption class="figure-caption">HLA proteins (green) display peptides (red) from inside the cell to help immune cells find cancerous or infected cells</figcaption><p></p>
-</figure>
-</div>
-<p>Predicting the specific HLA peptide combination that will present the peptide to the cell’s surface permits the creation of a treatment that will trigger the human immune system to destroy the cell.</p>
-<p>Specifically, in cancer, this ability is essential, given that cancer is highly mutagenic with tumor and patient-specific mutations. This means that patients with the same tumor type will have different mutations that result in different reactions to the same treatment.</p>
-<p>Advances in Deoxyribonucleic acid (DNA) sequencing, Messenger Ribonucleic acid (mRNA) vaccines, and high computational power allow us to work toward patient-specific therapy. This approach, called personalized mRNA-based antitumor vaccine, visualized in Figure \ref{fig:2}, is bound to play a major role in the future.</p>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="Figure 2.jpeg" class="img-fluid figure-img" width="300"></p>
-<p></p><figcaption class="figure-caption">The exome of tumor cells isolated from a biopsy sample and the exome of normal cells are compared to identify tumor-specific mutations. Point non-synonymous mutations, gene deletions, or rearrangements can give rise to neoantigens. Several bioinformatics tools are used to predict major histocompatibility complex (MHC) class I and class II binding (necessary for recognition by T cells) and RNA expression presence of the mutated antigen among tumor cells (clonality). RNA sequencing enables verification that the gene encoding the neoantigen is actually expressed by tumor cells. A tandem gene encoding several neoantigen peptides is cloned into a plasmid and transcribed to mRNA. Finally, these mRNAs are injected as naked RNA, formulated into liposomes, or loaded into dendritic cells.</figcaption><p></p>
-</figure>
-</div>
-<p>The approach is meant to trigger an antitumor immune response in patients by challenging them with mRNAs encoding tumor-specific antigens \citep{pastor_rna_2018}. These mRNAs can be directly injected as naked RNA or loaded into patient-derived dendritic cells.</p>
-<p>In this work, we propose to extend the approach with additional laboratory and analytical optimization steps.</p>
-<p>Concretely DNA sequenced from the patient is used to select candidate peptides that will result from gene expression. As the space of possible combinations is huge a subset of potential peptides is synthesized and their reaction to the patient’s specific HLA alleles is tested by applying an enzyme-linked immunospot (ELISpot) assay.</p>
-<p>An enzyme-linked immunospot (ELISpot) assay \citep{engvall_enzyme-linked_1971}, shown in Figure \ref{fig:3}, is a highly versatile and sensitive technique that is used for qualitative and quantitative measurement of the cytokine-secreting cells at the single-cell level. \citep{paulie_chapter_2006}</p>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="Figure 3.jpeg" class="img-fluid figure-img" width="300"></p>
-<p></p><figcaption class="figure-caption">Visualisation of an enzyme-linked immunospot (ELISpot) Assa</figcaption><p></p>
-</figure>
-</div>
+<section id="song" class="level2">
+<h2 class="anchored" data-anchor-id="song"><span class="citation" data-cites="song">(<a href="#ref-song" role="doc-biblioref">Song et al., n.d.</a>)</span></h2>
+</section>
+<section id="background" class="level1">
+<h1>Background</h1>
+<section id="linear-inverse-problems" class="level2">
+<h2 class="anchored" data-anchor-id="linear-inverse-problems">Linear inverse problems</h2>
+<p>An inverse problem seeks to recover unobserved causal factors from a set of observed measurements.If <span class="math inline">\(x \in \mathbb{R}^n\)</span> is an unknown signal and <span class="math inline">\(y \in \mathbb{R}^m=Ax+\epsilon\)</span> is a noisy observation with <span class="math inline">\(m\)</span> linear measurements and <span class="math inline">\(A\in \mathbb{R}^{m\times n}\)</span> is a linear operator and <span class="math inline">\(\epsilon \in \mathbb{R^n}\)</span> is a noise vector. Solving the inverse problem constitutes of recovering <span class="math inline">\(x\)</span> from its measurement <span class="math inline">\(y\)</span>. There is the assumption that <span class="math inline">\(x\)</span> is sampled from a prior <span class="math inline">\(p(x)\)</span> and as such the measurement and signal are connected trough a the measurement distribution <span class="math inline">\(p(y|x)=q_{\epsilon}(y-Ax)\)</span> with <span class="math inline">\(q_{\epsilon}\)</span> being the noise distribution of <span class="math inline">\(\epsilon\)</span>. Given <span class="math inline">\(p(y|x)\)</span> and <span class="math inline">\(p(x)\)</span> the inverse problem can be solved by sampling from the posterior distribution <span class="math inline">\(p(x|y)\)</span>.</p>
+</section>
+<section id="score-based-generative-models" class="level2">
+<h2 class="anchored" data-anchor-id="score-based-generative-models">Score-based generative models</h2>
+<p>When solving an inverse problem we are given an observation <span class="math inline">\(y\)</span>, a measurement distribution <span class="math inline">\(p(y|x)\)</span> and wish to sample from the posterior distribution <span class="math inline">\(p(x|y)\)</span>. The prior distribition <span class="math inline">\(p(x)\)</span> is usually not known but we can use a generative model on a dataset $ {x_1,x_2 …x_n} p(x)$ to estimate the prior distribution. The posterior distribution <span class="math inline">\(p(x|y)\)</span> can be determined through Bayes’ rule.</p>
+
 
 
 </section>
+</section>
 
-</main> <!-- /main -->
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" role="doc-bibliography">
+<div id="ref-song" class="csl-entry" role="doc-biblioentry">
+Song, Yang, Liyue Shen, Lei Xing, and Stefano Ermon. n.d. <span>“Solving Inverse Problems in Medical Imaging with Score-Based Generative Models.”</span> <a href="https://doi.org/10.48550/arXiv.2111.08005">https://doi.org/10.48550/arXiv.2111.08005</a>.
+</div>
+</div></section></div></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {

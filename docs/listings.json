@@ -3,7 +3,9 @@
     "listing": "/index.html",
     "items": [
       "/posts/Intractable inference problems/index.html",
-      "/posts/personalized therapy/index.html",
+      "/posts/inverse problems/index.html",
+      "/posts/personalized therapy/In silico Antibody-Peptide Epitope prediction for Personalized cancer therapy/index.html",
+      "/posts/personalized therapy/Patient Specific tumor/index.html",
       "/posts/welcome/index.html"
     ]
   }
