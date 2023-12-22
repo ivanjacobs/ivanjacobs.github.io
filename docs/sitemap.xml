@@ -2,15 +2,15 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://ivanjacobs.github.io/about.html</loc>
-    <lastmod>2023-12-21T06:32:50.748Z</lastmod>
+    <lastmod>2023-12-22T04:00:46.656Z</lastmod>
   </url>
   <url>
     <loc>https://ivanjacobs.github.io/index.html</loc>
-    <lastmod>2023-12-21T06:32:40.034Z</lastmod>
+    <lastmod>2023-12-22T10:05:04.280Z</lastmod>
   </url>
   <url>
     <loc>https://ivanjacobs.github.io/posts/Intractable inference problems/index.html</loc>
-    <lastmod>2023-03-12T14:22:02.863Z</lastmod>
+    <lastmod>2023-12-22T00:14:51.210Z</lastmod>
   </url>
   <url>
     <loc>https://ivanjacobs.github.io/posts/personalized therapy/index.html</loc>
@@ -22,7 +22,7 @@
   </url>
   <url>
     <loc>https://ivanjacobs.github.io/posts/inverse problems/index.html</loc>
-    <lastmod>2023-04-01T05:09:44.513Z</lastmod>
+    <lastmod>2023-12-22T00:15:06.970Z</lastmod>
   </url>
   <url>
     <loc>https://ivanjacobs.github.io/posts/personalized therapy/In silico Antibody-Peptide Epitope prediction for Personalized cancer therapy/index.html</loc>
@@ -31,5 +31,9 @@
   <url>
     <loc>https://ivanjacobs.github.io/posts/personalized therapy/Patient Specific tumor/index.html</loc>
     <lastmod>2023-12-21T06:32:38.839Z</lastmod>
+  </url>
+  <url>
+    <loc>https://ivanjacobs.github.io/posts/reinforce/index.html</loc>
+    <lastmod>2023-12-22T10:05:03.289Z</lastmod>
   </url>
 </urlset>

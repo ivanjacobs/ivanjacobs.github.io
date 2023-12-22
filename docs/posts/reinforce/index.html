@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.3.450">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Ivan Jacobs">
+<meta name="dcterms.date" content="2023-03-02">
+
+<title>Ivan Jacobs - Policy gradient methods</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
+
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<link href="../../profile.jpg" rel="icon" type="image/jpeg">
+<script src="../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<script async="" src="https://www.googletagmanager.com/gtag/js?id=G-LER7N2QH22"></script>
+
+<script type="text/javascript">
+
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-LER7N2QH22', { 'anonymize_ip': true});
+</script>
+
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<link rel="stylesheet" href="../../styles.css">
+<meta property="og:title" content="Ivan Jacobs - Policy gradient methods">
+<meta property="og:description" content="">
+<meta property="og:site-name" content="Ivan Jacobs">
+<meta name="twitter:title" content="Ivan Jacobs - Policy gradient methods">
+<meta name="twitter:description" content="">
+<meta name="twitter:card" content="summary">
+</head>
+
+<body class="nav-fixed fullcontent">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-dark ">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container">
+    <a class="navbar-brand" href="../../index.html">
+    <span class="navbar-title">Ivan Jacobs</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../about.html" rel="" target="">
+ <span class="menu-text">About</span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://twitter.com/IvanJac20353450" rel="" target=""><i class="bi bi-twitter" role="img">
+</i> 
+ <span class="menu-text"></span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://www.linkedin.com/in/ivanjacobs/" rel="" target=""><i class="bi bi-linkedin" role="img">
+</i> 
+ <span class="menu-text"></span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/ivanjacobs" rel="" target=""><i class="bi bi-github" role="img">
+</i> 
+ <span class="menu-text"></span></a>
+  </li>  
+</ul>
+            <div class="quarto-navbar-tools">
+</div>
+          </div> <!-- /navcollapse -->
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<header id="title-block-header" class="quarto-title-block default page-columns page-full">
+  <div class="quarto-title-banner page-columns page-full">
+    <div class="quarto-title column-body">
+      <h1 class="title">Policy gradient methods</h1>
+                                <div class="quarto-categories">
+                <div class="quarto-category">Reinforcement Learning</div>
+                <div class="quarto-category">Reinforce</div>
+                <div class="quarto-category">Policy gradient methods</div>
+                <div class="quarto-category">Policy approximations</div>
+              </div>
+                  </div>
+  </div>
+    
+  
+  <div class="quarto-title-meta">
+
+      <div>
+      <div class="quarto-title-meta-heading">Author</div>
+      <div class="quarto-title-meta-contents">
+               <p>Ivan Jacobs </p>
+            </div>
+    </div>
+      
+      <div>
+      <div class="quarto-title-meta-heading">Published</div>
+      <div class="quarto-title-meta-contents">
+        <p class="date">March 2, 2023</p>
+      </div>
+    </div>
+    
+      
+    </div>
+    
+  
+  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    
+<!-- main -->
+<main class="content quarto-banner-title-block" id="quarto-document-content">
+
+
+
+
+<p>Sources: <span class="citation" data-cites="sutton weng2018">(<a href="#ref-sutton" role="doc-biblioref"><span>“Sutton &amp; Barto Book: Reinforcement Learning: An Introduction,”</span> n.d.</a>; <a href="#ref-weng2018" role="doc-biblioref">Weng 2018</a>)</span></p>
+<p>In this post, we explore approaches that involve the acquisition of a parameterized policy capable of selecting actions without reliance on a value function. While a value function may still play a role in learning the policy parameter, it is not obligatory for action selection. The notation <span class="math inline">\(\theta \in \mathbb{R}^{d'}\)</span>represents the parameter vector of the policy.</p>
+<p>Consequently, the expression <span class="math inline">\(\pi( a\|s, \theta) = Pr { A_t=a \| S_t=s, \theta\_t=\theta}\)</span> denotes the probability of taking action <span class="math inline">\(a\)</span> at time <span class="math inline">\(t\)</span>, given that the environment is in state <span class="math inline">\(s\)</span> at time <span class="math inline">\(t\)</span>, with parameter <span class="math inline">\(\theta\)</span>. If a method incorporates a learned value function, the weight vector of the value function is denoted as <span class="math inline">\(w \in \mathbb{R}^{d}\)</span>, as in <span class="math inline">\(\hat{v}(s,w)\)</span>.</p>
+<p>This section delves into methodologies for learning the policy parameter based on the gradient of a scalar performance measure <span class="math inline">\(J(\theta)\)</span> concerning the policy parameter. These methodologies aim to maximize performance, and their updates approximate gradient ascent in J:</p>
+<p><span class="math display">\[\theta_{t+1} = \theta_t + \alpha \widehat{\nabla J(\theta_t)}, \]</span></p>
+<p>where <span class="math inline">\(\widehat{\nabla J(\theta_t)} \in \mathbb{R}^{d'}\)</span> is a stochastic estimate whose expectation approximates the gradient of the performance measure concerning the policy parameter <span class="math inline">\(\theta_t\)</span>.</p>
+<section id="policy-approximation" class="level3">
+<h3 class="anchored" data-anchor-id="policy-approximation">Policy approximation</h3>
+<p>In the context of policy gradient methods, the policy can adopt any parameterization, provided that <span class="math inline">\(\pi(a|s, \theta)\)</span> is differentiable with respect to its parameters. Formally, this condition is satisfied as long as <span class="math inline">\(\nabla\pi(a|s, \theta)\)</span> (the column vector of partial derivatives of <span class="math inline">\(\pi(a|s, \theta)\)</span> concerning the components of ) exists and is finite for all <span class="math inline">\(s \in S\)</span>, <span class="math inline">\(a \in A(s)\)</span>, and <span class="math inline">\(\theta \in \mathbb{R}^{d_0}\)</span>. In practical terms, to ensure effective exploration, it is generally stipulated that the policy remains non-deterministic, i.e., <span class="math inline">\(\pi(a|s, \theta) \in (0, 1)\)</span> for all <span class="math inline">\(s\)</span>, <span class="math inline">\(a\)</span>, and <span class="math inline">\(\theta\)</span>.</p>
+<p>When the action space is discrete and of manageable size, a prevalent approach is to employ a parameterization based on forming numerical preferences, denoted as <span class="math inline">\(h(s, a, \theta) \in \mathbb{R}\)</span> for each state–action pair. These preferences guide the selection of actions, with those having the highest preferences in each state being assigned the greatest probabilities of being chosen. An exemplar distribution employed for this purpose is the exponential soft-max distribution, expressed as:</p>
+<p><span class="math display">\[ \pi(a|s, \theta) = \frac{e^{h(s,a,\theta)}}{\sum_b e^{h(s,b,\theta)}}\]</span></p>
+<p>where <span class="math inline">\(b\)</span> iterates over the possible actions in the state and <span class="math inline">\(e \approx 2.71828\)</span> is the base of the natural logarithm. This equation represents a particular form of the soft-max function commonly used in reinforcement learning and machine learning. It defines a probability distribution over a discrete set of actions in the context of a particular state <span class="math inline">\(s\)</span> given a set of parameters <span class="math inline">\(\theta\)</span>.</p>
+<p>Here’s a step-by-step explanation:</p>
+<ol type="1">
+<li><strong>Denominator:</strong>
+<ul>
+<li><p><span class="math inline">\(e^{h(s, b, \theta)}\)</span> represents the exponential of the action preference <span class="math inline">\(h(s, b, \theta)\)</span> for each possible action <span class="math inline">\(b\)</span> in state <span class="math inline">\(s\)</span>. This is calculated for all actions in the denominator.</p></li>
+<li><p><span class="math inline">\(\sum_b e^{h(s, b, \theta)}\)</span> computes the sum of these exponentials over all possible actions in the state.</p></li>
+</ul></li>
+<li><strong>Numerator:</strong>
+<ul>
+<li><span class="math inline">\(e^{h(s, a, \theta)}\)</span> represents the exponential of the numerical preference <span class="math inline">\(h(s, a, \theta)\)</span> for the specific action <span class="math inline">\(a\)</span> in state <span class="math inline">\(s\)</span>. This is the preference associated with the action of interest in the numerator.</li>
+</ul></li>
+</ol>
+<p>We call this kind of policy parameterization <em>soft-max in action preferences.</em> The soft-max in action preferences essentially takes the exponentiated preferences for each action and normalizes them to obtain probabilities. The probability of selecting action <span class="math inline">\(a\)</span> in state <span class="math inline">\(s\)</span> is given by the ratio of its preference to the sum of preferences for all actions. <span class="math inline">\(\pi(a|s, \theta)\)</span> represents the probability of selecting action <span class="math inline">\(a\)</span> in state <span class="math inline">\(s\)</span> given the parameters <span class="math inline">\(\theta\)</span>.</p>
+<p>In simpler terms, the <em>soft-max in action preferences</em> converts a set of numerical preferences into a probability distribution. Actions with higher preferences have higher probabilities of being selected, but the distribution ensures that all probabilities sum to 1, making it a valid probability distribution. This is particularly useful in reinforcement learning, where it allows an agent to make probabilistic decisions based on learned preferences.</p>
+<p>The preferences for actions can be parameterized in various ways. One approach is to compute them using a deep artificial neural network (ANN), where <span class="math inline">\(\theta\)</span> represents the vector of all connection weights in the network. Alternatively, preferences can be linear in features, expressed as:</p>
+<p><span class="math display">\[ h(s, a, \theta) = \theta^Tx(s, a) \]</span></p>
+<p>where <span class="math inline">\(\theta\)</span> represents the parameter vector, and <span class="math inline">\(x(s, a) \in \mathbb{R}^{d'}\)</span> denotes the feature vector associated with state <span class="math inline">\(s\)</span> and action <span class="math inline">\(a\)</span>.</p>
+<p>Parameterizing policies using the soft-max in action preferences offers notable advantages over <span class="math inline">\(\epsilon-greedy\)</span> action selection and action-value methods. Firstly, the soft-max allows the approximate policy to approach a deterministic policy, whereas <span class="math inline">\(\epsilon-greedy\)</span> methods always maintain a non-zero probability of selecting a random action. Even if a soft-max distribution is applied to action values, it alone cannot guide the policy towards determinism; instead, the action-value estimates converge to true values, leading to specific probabilities other than 0 and 1. Adjusting the temperature parameter in the soft-max distribution could approach determinism over time, but determining an appropriate reduction schedule is challenging without substantial prior knowledge.</p>
+<p>In contrast, action preferences, parameterized through the soft-max, do not converge to specific values; rather, they are designed to generate the optimal stochastic policy. If the optimal policy is deterministic, the preferences for optimal actions are driven infinitely higher than for suboptimal actions, assuming the chosen parameterization allows for such distinctions.</p>
+<p>A second advantage is that soft-max parameterization enables the selection of actions with arbitrary probabilities. In problems involving substantial function approximation, the best approximate policy may be stochastic. For instance, in card games with imperfect information, optimal play often involves blending two actions with specific probabilities, such as bluffing in Poker. Action-value methods lack a natural mechanism for discovering stochastic optimal policies, while policy-approximating methods, particularly those utilizing the soft-max, can accommodate and discover such stochastic optimal policies.</p>
+</section>
+<section id="the-policy-gradient-theorem" class="level3">
+<h3 class="anchored" data-anchor-id="the-policy-gradient-theorem">The Policy Gradient Theorem</h3>
+<p>In addition to the practical benefits of policy parameterization over <span class="math inline">\(\epsilon-greedy\)</span> action selection, there exists a significant theoretical advantage. Continuous policy parameterization ensures that the action probabilities change smoothly with respect to the learned parameters. In contrast, <span class="math inline">\(\epsilon-greedy\)</span> selection may lead to abrupt changes in action probabilities for even a minor alteration in estimated action values, especially when a different action attains the maximum value. This inherent smoothness in the dependence of policy on parameters contributes to stronger convergence guarantees for policy-gradient methods compared to action-value methods. Specifically, the continuity of the policy’s dependence on parameters facilitates the approximation of gradient ascent in policy-gradient methods.</p>
+<p>For the episodic case we can define the performance measure as the value of the start state of the episode. By assuming that every episode starts in some particular (non-random) state <span class="math inline">\(s_0\)</span> we simplify the notation. Then,in the episodic case we define performance as <span class="math display">\[
+J(\theta)\doteq v_\pi(s_0)
+\]</span> where <span class="math inline">\(v_{\pi{_\theta}}\)</span> is the true value function for <span class="math inline">\(\pi_\theta\)</span> and the policy is determined by <span class="math inline">\(\theta\)</span>.</p>
+<p>Challenges in Changing Policy Parameters with Function Approximation:</p>
+<ol type="1">
+<li><strong>Dependency on Both Action Selections and State Distribution:</strong> Problem: Performance is influenced by both the choices of actions and the distribution of states where these actions occur. Implication: Altering the policy parameter impacts both action selections and state distributions.</li>
+<li><strong>Computational Challenge in State Distribution Effects:</strong> Problem: While the effect of the policy parameter on actions and rewards can be computed straightforwardly, the impact on the state distribution is typically unknown. Implication: Estimating the performance gradient is complicated when the effect of policy changes on the state distribution is uncertain.</li>
+<li><strong>Unknown Environment Influence:</strong> Problem: The effect of the policy on the state distribution is a function of the environment and is often not known. Implication: The challenge lies in estimating the gradient when changes in policy influence the state distribution, the details of which are not explicitly known.</li>
+</ol>
+<p>In summary, the difficulty arises in effectively changing policy parameters for improvement when the performance gradient is contingent on the unknown consequences of policy adjustments on the state distribution.</p>
+<p>Fortunately, the policy gradient theorem offers a concise and theoretical solution to this challenge. It provides an analytical expression for the gradient of performance concerning the policy parameter, crucial for approximating gradient ascent. <span class="math display">\[
+\nabla v^\pi(s) = \nabla \left[ \sum_{a} \pi(a|s)q_\pi(s, a) \right]
+,\text{ for all s} \in S\\
+\]</span> <span class="math display">\[
+\begin{align*}
+&amp;= \sum_a \Biggl[ \nabla\pi(a|s)q_\pi(s, a) + \pi(a|s)\nabla q_\pi(s, a) \Biggr] \quad \tag{1. product rule of calculus}\label{eq:a} \\
+&amp;= \sum_a \Biggl[ \nabla\pi(a|s)q_\pi(s, a) + \pi(a|s)\nabla \sum_{s',r'} p(s', r'|s, a)(r+v_\pi(s'))  \Biggr]  \quad \tag{2}\label{eq:a2} \\
+&amp;= \sum_a \Biggl[ \nabla\pi(a|s)q_{\pi}(s, a) + \pi(a|s) \sum_{s'} p(s' |s, a)\nabla v_{\pi}(s') \Biggr]  \quad \tag{3}\label{eq:a3}\\
+&amp;= \sum_a \Biggl[ \nabla\pi(a|s)q_{\pi}(s, a) + \pi(a|s) \sum_{s'} p(s' |s, a) \quad     
+\qquad  \sum_{a'} \Bigl[ \nabla\pi(a'|s')q_{\pi}(s', a') + \pi(a'|s') \sum_{s''} p(s'' |s', a')\nabla v_\pi(s'') \Bigr] \Biggr] \nonumber \tag{4. Unrolling}\label{eq:a4} \\
+&amp;= \sum_{x \in S}  \sum_{k=0}^{\infty} Pr(s \to x, k, \pi) \sum_a \nabla\pi(a|x)q_{\pi}(x, a) \tag{5}\label{eq:a5}
+\end{align*}
+\]</span> Let’s walk through the proof:</p>
+<p><span class="math inline">\(\eqref{eq:a}\)</span> and <span class="math inline">\(\eqref{eq:a2}\)</span>:</p>
+<p>Let’s break down each step in detail:</p>
+<p><strong>Initial Expression:</strong> <span class="math display">\[ = \sum_a \Biggl[ \nabla\pi(a|s)q_\pi(s, a) + \pi(a|s)\nabla q_\pi(s, a) \Biggr] \quad \text{(product rule of calculus)}\]</span></p>
+<p>In this step, the product rule of calculus is applied. The product rule states that the derivative of a product of two functions is the derivative of the first function times the second function, plus the first function times the derivative of the second function. Here, the functions are <span class="math inline">\(\pi(a|s)\)</span> and <span class="math inline">\(q_\pi(s, a)\)</span>.</p>
+<p><strong>Further Expansion:</strong> <span class="math display">\[
+= \sum_a \Biggl[ \nabla\pi(a|s)q_\pi(s, a) + \pi(a|s)\nabla \sum_{s',r'} p(s', r'|s, a)\Bigl[r+v_\pi(s')\Bigr]  \Biggr] \quad \text{(further expansion)}\]</span></p>
+<p>The second term <span class="math inline">\(\pi(a|s)\nabla q_\pi(s, a)\)</span> is further expanded using the definition of <span class="math inline">\(q_\pi(s, a)\)</span> as the expected sum of future rewards. This involves taking the derivative with respect to <span class="math inline">\(a\)</span> and considering the probability distribution <span class="math inline">\(p(s', r'|s, a)\)</span>. The sum is taken over all possible future states <span class="math inline">\(s'\)</span> and rewards <span class="math inline">\(r'\)</span>.</p>
+<p><strong>Because</strong> <span class="math inline">\(P(s' \vert s, a) = \sum_r P(s', r \vert s, a)\)</span> we can express <span class="math inline">\(\eqref{eq:a2}\)</span> as <span class="math inline">\(\eqref{eq:a3}\)</span>:</p>
+<p><span class="math display">\[\sum_a \Biggl[ \nabla\pi(a|s)q_{\pi}(s, a) + \pi(a|s) \sum_{s'} p(s' |s, a)\nabla v_{\pi}(s') \Biggr]\]</span></p>
+<p>This equation has a nice recursive form (see the red parts!) and the future state value function <span class="math inline">\(V^\pi(s’)\)</span> can be repeated unrolled by following the same equation.</p>
+<p><strong>Let’s look at how to arrive at</strong> <span class="math inline">\(\eqref{eq:a5}\)</span> from <span class="math inline">\(\eqref{eq:a4}\)</span>:</p>
+<ul>
+<li><p>Let’s consider the following visitation sequence and label the probability of transitioning from state <span class="math inline">\(s\)</span> to state <span class="math inline">\(x\)</span> with policy <span class="math inline">\(\pi_\theta\)</span> after <span class="math inline">\(k\)</span> step as <span class="math inline">\(\rho^\pi(s \to x, k)\)</span>. <span class="math display">\[s \xrightarrow[]{a \sim \pi_\theta(.\vert s)} s' \xrightarrow[]{a \sim \pi_\theta(.\vert s')} s'' \xrightarrow[]{a \sim \pi_\theta(.\vert s'')} \dots\]</span><br>
+</p></li>
+<li><p>When <span class="math inline">\(k = 0\)</span>: <span class="math inline">\(\rho^\pi(s \to s, k=0) = 1\)</span>.</p></li>
+<li><p>When <span class="math inline">\(k = 1\)</span>, we scan through all possible actions and sum up the transition probabilities to the target state: <span class="math inline">\(\rho^\pi(s \to s’, k=1) = \sum_a \pi_\theta(a \vert s) P(s’ \vert s, a)\)</span>.</p></li>
+<li><p>Imagine that the goal is to go from state <span class="math inline">\(s\)</span> to <span class="math inline">\(x\)</span> after <span class="math inline">\(k+1\)</span> steps while following policy <span class="math inline">\(\pi_\theta\)</span> . We can first travel from <span class="math inline">\(s\)</span> to a middle point <span class="math inline">\(s’\)</span> (any state can be a middle point,) after <span class="math inline">\(k\)</span> steps and then go to the final state <span class="math inline">\(x\)</span> during the last step. In this way, we are able to update the visitation probability recursively: <span class="math inline">\(\rho^\pi(s \to x, k+1) = \sum_{s’} \rho^\pi(s \to s’, k) \rho^\pi(s’ \to x, 1)\)</span>.</p>
+<p>Then we go back to unroll the recursive representation of <span class="math inline">\(\nabla_\theta V^\pi(s)\)</span>!</p>
+<p>Let <span class="math inline">\(\phi(s) = \sum{a \in \mathcal{A}} \nabla\theta \pi_\theta(a \vert s)Q^\pi(s, a)\)</span> to simplify the maths. If we keep on extending <span class="math inline">\(\nabla_\theta V^\pi(.)\)</span> infinitely, it is easy to find out that we can transition from the starting state <span class="math inline">\(s\)</span> to any state after any number of steps in this unrolling process and by summing up all the visitation probabilities, we get <span class="math inline">\(\nabla_\theta V^\pi(s)\)</span>!</p></li>
+</ul>
+<p><span class="math display">\[
+\begin{align*}&amp; \color{red}{\nabla_\theta V^\pi(s)}= \\&amp;= \phi(s) + \sum_a \pi_\theta(a \vert s) \sum_{s'} P(s' \vert s,a) \color{red}{\nabla_\theta V^\pi(s')} \\&amp;= \phi(s) + \sum_{s'} \sum_a \pi_\theta(a \vert s) P(s' \vert s,a) \color{red}{\nabla_\theta V^\pi(s')} \\&amp;= \phi(s) + \sum_{s'} \rho^\pi(s \to s', 1) \color{red}{\nabla_\theta V^\pi(s')} \\&amp;= \phi(s) + \sum_{s'} \rho^\pi(s \to s', 1) \color{red}{\nabla_\theta V^\pi(s')} \\&amp;= \phi(s) + \sum_{s'} \rho^\pi(s \to s', 1) \color{red}{[ \phi(s') + \sum_{s''} \rho^\pi(s' \to s'', 1) \nabla_\theta V^\pi(s'')]} \\&amp;= \phi(s) + \sum_{s'} \rho^\pi(s \to s', 1) \phi(s') + \sum_{s''} \rho^\pi(s \to s'', 2)\color{red}{\nabla_\theta V^\pi(s'')} \scriptstyle{\text{ ; Consider }s'\text{ as the middle point for }s \to s''}\\&amp;= \phi(s) + \sum_{s'} \rho^\pi(s \to s', 1) \phi(s') + \sum_{s''} \rho^\pi(s \to s'', 2)\phi(s'') + \sum_{s'''} \rho^\pi(s \to s''', 3)\color{red}{\nabla_\theta V^\pi(s''')} \\&amp;= \dots \scriptstyle{\text{; Repeatedly unrolling the part of }\nabla_\theta V^\pi(.)} \\&amp;= \sum_{x\in\mathcal{S}}\sum_{k=0}^\infty \rho^\pi(s \to x, k) \phi(x)\end{align*}
+\]</span> The nice rewriting above allows us to exclude the derivative of Q-value function, <span class="math inline">\(\nabla_\theta Q^\pi(s, a)\)</span>. By plugging it into the objective function <span class="math inline">\(J(\theta)\)</span>, we are getting the following: <span class="math display">\[\begin{aligned}
+\nabla_\theta J(\theta)
+&amp;= \nabla_\theta V^\pi(s_0) &amp; \scriptstyle{\text{; Starting from a random state } s_0} \\
+&amp;= \sum_{s}\color{blue}{\sum_{k=0}^\infty \rho^\pi(s_0 \to s, k)} \phi(s) &amp;\scriptstyle{\text{; Let }\color{blue}{\eta(s) = \sum_{k=0}^\infty \rho^\pi(s_0 \to s, k)}} \\
+&amp;= \sum_{s}\eta(s) \phi(s) &amp; \\
+&amp;= \Big( {\sum_s \eta(s)} \Big)\sum_{s}\frac{\eta(s)}{\sum_s \eta(s)} \phi(s) &amp; \scriptstyle{\text{; Normalize } \eta(s), s\in\mathcal{S} \text{ to be a probability distribution.}}\\
+&amp;\propto \sum_s \frac{\eta(s)}{\sum_s \eta(s)} \phi(s) &amp; \scriptstyle{\sum_s \eta(s)\text{  is a constant}} \\
+&amp;= \sum_s d^\pi(s) \sum_a \nabla_\theta \pi_\theta(a \vert s)Q^\pi(s, a) &amp; \scriptstyle{d^\pi(s) = \frac{\eta(s)}{\sum_s \eta(s)}\text{ is stationary distribution.}}
+\end{aligned}\]</span> In the episodic case, the constant of proportionality <span class="math inline">\(\sum_s \eta(s)\)</span> is the average length of an episode; in the continuing case, it is 1 <span class="citation" data-cites="sutton">(<a href="#ref-sutton" role="doc-biblioref"><span>“Sutton &amp; Barto Book: Reinforcement Learning: An Introduction,”</span> n.d.</a>)</span>Sec. 13.2. The gradient can be further written as:</p>
+<p><span class="math display">\[
+\begin{aligned}\nabla_\theta J(\theta) &amp;\propto \sum_{s \in \mathcal{S}} d^\pi(s) \sum_{a \in \mathcal{A}} Q^\pi(s, a) \nabla_\theta \pi_\theta(a \vert s)  &amp;\\&amp;= \sum_{s \in \mathcal{S}} d^\pi(s) \sum_{a \in \mathcal{A}} \pi_\theta(a \vert s) Q^\pi(s, a) \frac{\nabla_\theta \pi_\theta(a \vert s)}{\pi_\theta(a \vert s)} &amp;\\&amp;= \mathbb{E}_\pi [Q^\pi(s, a) \nabla_\theta \ln \pi_\theta(a \vert s)] &amp; \scriptstyle{\text{; Because } (\ln x)' = 1/x}\end{aligned}
+\]</span></p>
+<p>Where <span class="math inline">\(\mathbb{E}\_\pi\)</span> refers to <span class="math inline">\(\mathbb{E}_{s \sim d_\pi, a \sim \pi_\theta}\)</span> when both state and action distributions follow the policy <span class="math inline">\(\pi_\theta\)</span>(on policy).</p>
+<p>The policy gradient theorem lays the theoretical foundation for various policy gradient algorithms. This vanilla policy gradient update has no bias but high variance. Many following algorithms were proposed to reduce the variance while keeping the bias unchanged.</p>
+<p><span class="math display">\[\nabla_\theta J(\theta)  = \mathbb{E}_\pi [Q^\pi(s, a) \nabla_\theta \ln \pi_\theta(a \vert s)]\]</span></p>
+
+
+
+</section>
+
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" role="list">
+<div id="ref-sutton" class="csl-entry" role="listitem">
+<span>“Sutton &amp; Barto Book: Reinforcement Learning: An Introduction.”</span> n.d. <a href="http://incompleteideas.net/book/the-book-2nd.html">http://incompleteideas.net/book/the-book-2nd.html</a>.
+</div>
+<div id="ref-weng2018" class="csl-entry" role="listitem">
+Weng, Lilian. 2018. <span>“Policy Gradient Algorithms.”</span> <a href="https://lilianweng.github.io/posts/2018-04-08-policy-gradient/">https://lilianweng.github.io/posts/2018-04-08-policy-gradient/</a>.
+</div>
+</div></section></div></main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>

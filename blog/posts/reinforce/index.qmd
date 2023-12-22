@@ -1,0 +1,141 @@
+---
+title: "Policy gradient methods"
+author: "Ivan Jacobs"
+date: "2023-03-02"
+categories: [Reinforcement Learning,Reinforce, Policy gradient methods, Policy approximations]
+bibliography: references.bib
+---
+
+Sources: [@sutton; @weng2018]
+
+In this post, we explore approaches that involve the acquisition of a parameterized policy capable of selecting actions without reliance on a value function. While a value function may still play a role in learning the policy parameter, it is not obligatory for action selection. The notation $\theta \in \mathbb{R}^{d'}$represents the parameter vector of the policy.
+
+Consequently, the expression $\pi( a\|s, \theta) = Pr { A_t=a \| S_t=s, \theta\_t=\theta}$ denotes the probability of taking action $a$ at time $t$, given that the environment is in state $s$ at time $t$, with parameter $\theta$. If a method incorporates a learned value function, the weight vector of the value function is denoted as $w \in \mathbb{R}^{d}$, as in $\hat{v}(s,w)$.
+
+This section delves into methodologies for learning the policy parameter based on the gradient of a scalar performance measure $J(\theta)$ concerning the policy parameter. These methodologies aim to maximize performance, and their updates approximate gradient ascent in J:
+
+$$\theta_{t+1} = \theta_t + \alpha \widehat{\nabla J(\theta_t)}, $$
+
+where $\widehat{\nabla J(\theta_t)} \in \mathbb{R}^{d'}$ is a stochastic estimate whose expectation approximates the gradient of the performance measure concerning the policy parameter $\theta_t$.
+
+### Policy approximation
+
+In the context of policy gradient methods, the policy can adopt any parameterization, provided that $\pi(a|s, \theta)$ is differentiable with respect to its parameters. Formally, this condition is satisfied as long as $\nabla\pi(a|s, \theta)$ (the column vector of partial derivatives of $\pi(a|s, \theta)$ concerning the components of \theta ) exists and is finite for all $s \in S$, $a \in A(s)$, and $\theta \in \mathbb{R}^{d_0}$. In practical terms, to ensure effective exploration, it is generally stipulated that the policy remains non-deterministic, i.e., $\pi(a|s, \theta) \in (0, 1)$ for all $s$, $a$, and $\theta$.
+
+When the action space is discrete and of manageable size, a prevalent approach is to employ a parameterization based on forming numerical preferences, denoted as $h(s, a, \theta) \in \mathbb{R}$ for each state–action pair. These preferences guide the selection of actions, with those having the highest preferences in each state being assigned the greatest probabilities of being chosen. An exemplar distribution employed for this purpose is the exponential soft-max distribution, expressed as:
+
+$$ \pi(a|s, \theta) = \frac{e^{h(s,a,\theta)}}{\sum_b e^{h(s,b,\theta)}}$$
+
+where $b$ iterates over the possible actions in the state and $e \approx 2.71828$ is the base of the natural logarithm. This equation represents a particular form of the soft-max function commonly used in reinforcement learning and machine learning. It defines a probability distribution over a discrete set of actions in the context of a particular state $s$ given a set of parameters $\theta$.
+
+Here's a step-by-step explanation:
+
+1.  **Denominator:**
+    -   $e^{h(s, b, \theta)}$ represents the exponential of the action preference $h(s, b, \theta)$ for each possible action $b$ in state $s$. This is calculated for all actions in the denominator.
+
+    -   $\sum_b e^{h(s, b, \theta)}$ computes the sum of these exponentials over all possible actions in the state.
+2.  **Numerator:**
+    -   $e^{h(s, a, \theta)}$ represents the exponential of the numerical preference $h(s, a, \theta)$ for the specific action $a$ in state $s$. This is the preference associated with the action of interest in the numerator.
+
+We call this kind of policy parameterization *soft-max in action preferences.* The soft-max in action preferences essentially takes the exponentiated preferences for each action and normalizes them to obtain probabilities. The probability of selecting action $a$ in state $s$ is given by the ratio of its preference to the sum of preferences for all actions. $\pi(a|s, \theta)$ represents the probability of selecting action $a$ in state $s$ given the parameters $\theta$.
+
+In simpler terms, the *soft-max in action preferences* converts a set of numerical preferences into a probability distribution. Actions with higher preferences have higher probabilities of being selected, but the distribution ensures that all probabilities sum to 1, making it a valid probability distribution. This is particularly useful in reinforcement learning, where it allows an agent to make probabilistic decisions based on learned preferences.
+
+The preferences for actions can be parameterized in various ways. One approach is to compute them using a deep artificial neural network (ANN), where $\theta$ represents the vector of all connection weights in the network. Alternatively, preferences can be linear in features, expressed as:
+
+$$ h(s, a, \theta) = \theta^Tx(s, a) $$
+
+where $\theta$ represents the parameter vector, and $x(s, a) \in \mathbb{R}^{d'}$ denotes the feature vector associated with state $s$ and action $a$.
+
+Parameterizing policies using the soft-max in action preferences offers notable advantages over $\epsilon-greedy$ action selection and action-value methods. Firstly, the soft-max allows the approximate policy to approach a deterministic policy, whereas $\epsilon-greedy$ methods always maintain a non-zero probability of selecting a random action. Even if a soft-max distribution is applied to action values, it alone cannot guide the policy towards determinism; instead, the action-value estimates converge to true values, leading to specific probabilities other than 0 and 1. Adjusting the temperature parameter in the soft-max distribution could approach determinism over time, but determining an appropriate reduction schedule is challenging without substantial prior knowledge.
+
+In contrast, action preferences, parameterized through the soft-max, do not converge to specific values; rather, they are designed to generate the optimal stochastic policy. If the optimal policy is deterministic, the preferences for optimal actions are driven infinitely higher than for suboptimal actions, assuming the chosen parameterization allows for such distinctions.
+
+A second advantage is that soft-max parameterization enables the selection of actions with arbitrary probabilities. In problems involving substantial function approximation, the best approximate policy may be stochastic. For instance, in card games with imperfect information, optimal play often involves blending two actions with specific probabilities, such as bluffing in Poker. Action-value methods lack a natural mechanism for discovering stochastic optimal policies, while policy-approximating methods, particularly those utilizing the soft-max, can accommodate and discover such stochastic optimal policies.
+
+### The Policy Gradient Theorem
+
+In addition to the practical benefits of policy parameterization over $\epsilon-greedy$ action selection, there exists a significant theoretical advantage. Continuous policy parameterization ensures that the action probabilities change smoothly with respect to the learned parameters. In contrast, $\epsilon-greedy$ selection may lead to abrupt changes in action probabilities for even a minor alteration in estimated action values, especially when a different action attains the maximum value. This inherent smoothness in the dependence of policy on parameters contributes to stronger convergence guarantees for policy-gradient methods compared to action-value methods. Specifically, the continuity of the policy's dependence on parameters facilitates the approximation of gradient ascent in policy-gradient methods.
+
+For the episodic case we can define the performance measure as the value of the start state of the episode. By assuming that every episode starts in some particular (non-random) state $s_0$ we simplify the notation. Then,in the episodic case we define performance as $$
+J(\theta)\doteq v_\pi(s_0)
+$$ where $v_{\pi{_\theta}}$ is the true value function for $\pi_\theta$ and the policy is determined by $\theta$.
+
+Challenges in Changing Policy Parameters with Function Approximation:
+
+1.  **Dependency on Both Action Selections and State Distribution:** Problem: Performance is influenced by both the choices of actions and the distribution of states where these actions occur. Implication: Altering the policy parameter impacts both action selections and state distributions.
+2.  **Computational Challenge in State Distribution Effects:** Problem: While the effect of the policy parameter on actions and rewards can be computed straightforwardly, the impact on the state distribution is typically unknown. Implication: Estimating the performance gradient is complicated when the effect of policy changes on the state distribution is uncertain.
+3.  **Unknown Environment Influence:** Problem: The effect of the policy on the state distribution is a function of the environment and is often not known. Implication: The challenge lies in estimating the gradient when changes in policy influence the state distribution, the details of which are not explicitly known.
+
+In summary, the difficulty arises in effectively changing policy parameters for improvement when the performance gradient is contingent on the unknown consequences of policy adjustments on the state distribution.
+
+Fortunately, the policy gradient theorem offers a concise and theoretical solution to this challenge. It provides an analytical expression for the gradient of performance concerning the policy parameter, crucial for approximating gradient ascent. $$
+\nabla v^\pi(s) = \nabla \left[ \sum_{a} \pi(a|s)q_\pi(s, a) \right]
+,\text{ for all s} \in S\\
+$$ $$
+\begin{align*}
+&= \sum_a \Biggl[ \nabla\pi(a|s)q_\pi(s, a) + \pi(a|s)\nabla q_\pi(s, a) \Biggr] \quad \tag{1. product rule of calculus}\label{eq:a} \\
+&= \sum_a \Biggl[ \nabla\pi(a|s)q_\pi(s, a) + \pi(a|s)\nabla \sum_{s',r'} p(s', r'|s, a)(r+v_\pi(s'))  \Biggr]  \quad \tag{2}\label{eq:a2} \\
+&= \sum_a \Biggl[ \nabla\pi(a|s)q_{\pi}(s, a) + \pi(a|s) \sum_{s'} p(s' |s, a)\nabla v_{\pi}(s') \Biggr]  \quad \tag{3}\label{eq:a3}\\
+&= \sum_a \Biggl[ \nabla\pi(a|s)q_{\pi}(s, a) + \pi(a|s) \sum_{s'} p(s' |s, a) \quad     
+\qquad  \sum_{a'} \Bigl[ \nabla\pi(a'|s')q_{\pi}(s', a') + \pi(a'|s') \sum_{s''} p(s'' |s', a')\nabla v_\pi(s'') \Bigr] \Biggr] \nonumber \tag{4. Unrolling}\label{eq:a4} \\
+&= \sum_{x \in S}  \sum_{k=0}^{\infty} Pr(s \to x, k, \pi) \sum_a \nabla\pi(a|x)q_{\pi}(x, a) \tag{5}\label{eq:a5} 
+\end{align*}
+$$ Let's walk through the proof:
+
+\eqref{eq:a} and \eqref{eq:a2}:
+
+Let's break down each step in detail:
+
+**Initial Expression:** $$ = \sum_a \Biggl[ \nabla\pi(a|s)q_\pi(s, a) + \pi(a|s)\nabla q_\pi(s, a) \Biggr] \quad \text{(product rule of calculus)}$$
+
+In this step, the product rule of calculus is applied. The product rule states that the derivative of a product of two functions is the derivative of the first function times the second function, plus the first function times the derivative of the second function. Here, the functions are $\pi(a|s)$ and $q_\pi(s, a)$.
+
+**Further Expansion:** $$
+= \sum_a \Biggl[ \nabla\pi(a|s)q_\pi(s, a) + \pi(a|s)\nabla \sum_{s',r'} p(s', r'|s, a)\Bigl[r+v_\pi(s')\Bigr]  \Biggr] \quad \text{(further expansion)}$$
+
+The second term $\pi(a|s)\nabla q_\pi(s, a)$ is further expanded using the definition of $q_\pi(s, a)$ as the expected sum of future rewards. This involves taking the derivative with respect to $a$ and considering the probability distribution $p(s', r'|s, a)$. The sum is taken over all possible future states $s'$ and rewards $r'$.
+
+**Because** $P(s' \vert s, a) = \sum_r P(s', r \vert s, a)$ we can express \eqref{eq:a2} as \eqref{eq:a3}:
+
+$$\sum_a \Biggl[ \nabla\pi(a|s)q_{\pi}(s, a) + \pi(a|s) \sum_{s'} p(s' |s, a)\nabla v_{\pi}(s') \Biggr]$$
+
+This equation has a nice recursive form (see the red parts!) and the future state value function $V^\pi(s’)$ can be repeated unrolled by following the same equation.
+
+**Let's look at how to arrive at** \eqref{eq:a5} from \eqref{eq:a4}:
+
+-   Let’s consider the following visitation sequence and label the probability of transitioning from state $s$ to state $x$ with policy $\pi_\theta$ after $k$ step as $\rho^\pi(s \to x, k)$. $$s \xrightarrow[]{a \sim \pi_\theta(.\vert s)} s' \xrightarrow[]{a \sim \pi_\theta(.\vert s')} s'' \xrightarrow[]{a \sim \pi_\theta(.\vert s'')} \dots$$\
+
+-   When $k = 0$: $\rho^\pi(s \to s, k=0) = 1$.
+
+-   When $k = 1$, we scan through all possible actions and sum up the transition probabilities to the target state: $\rho^\pi(s \to s’, k=1) = \sum_a \pi_\theta(a \vert s) P(s’ \vert s, a)$.
+
+-   Imagine that the goal is to go from state $s$ to $x$ after $k+1$ steps while following policy $\pi_\theta$ . We can first travel from $s$ to a middle point $s’$ (any state can be a middle point,) after $k$ steps and then go to the final state $x$ during the last step. In this way, we are able to update the visitation probability recursively: $\rho^\pi(s \to x, k+1) = \sum_{s’} \rho^\pi(s \to s’, k) \rho^\pi(s’ \to x, 1)$.
+
+    Then we go back to unroll the recursive representation of $\nabla_\theta V^\pi(s)$!
+
+    Let $\phi(s) = \sum{a \in \mathcal{A}} \nabla\theta \pi_\theta(a \vert s)Q^\pi(s, a)$ to simplify the maths. If we keep on extending $\nabla_\theta V^\pi(.)$ infinitely, it is easy to find out that we can transition from the starting state $s$ to any state after any number of steps in this unrolling process and by summing up all the visitation probabilities, we get $\nabla_\theta V^\pi(s)$!
+
+$$
+\begin{align*}& \color{red}{\nabla_\theta V^\pi(s)}= \\&= \phi(s) + \sum_a \pi_\theta(a \vert s) \sum_{s'} P(s' \vert s,a) \color{red}{\nabla_\theta V^\pi(s')} \\&= \phi(s) + \sum_{s'} \sum_a \pi_\theta(a \vert s) P(s' \vert s,a) \color{red}{\nabla_\theta V^\pi(s')} \\&= \phi(s) + \sum_{s'} \rho^\pi(s \to s', 1) \color{red}{\nabla_\theta V^\pi(s')} \\&= \phi(s) + \sum_{s'} \rho^\pi(s \to s', 1) \color{red}{\nabla_\theta V^\pi(s')} \\&= \phi(s) + \sum_{s'} \rho^\pi(s \to s', 1) \color{red}{[ \phi(s') + \sum_{s''} \rho^\pi(s' \to s'', 1) \nabla_\theta V^\pi(s'')]} \\&= \phi(s) + \sum_{s'} \rho^\pi(s \to s', 1) \phi(s') + \sum_{s''} \rho^\pi(s \to s'', 2)\color{red}{\nabla_\theta V^\pi(s'')} \scriptstyle{\text{ ; Consider }s'\text{ as the middle point for }s \to s''}\\&= \phi(s) + \sum_{s'} \rho^\pi(s \to s', 1) \phi(s') + \sum_{s''} \rho^\pi(s \to s'', 2)\phi(s'') + \sum_{s'''} \rho^\pi(s \to s''', 3)\color{red}{\nabla_\theta V^\pi(s''')} \\&= \dots \scriptstyle{\text{; Repeatedly unrolling the part of }\nabla_\theta V^\pi(.)} \\&= \sum_{x\in\mathcal{S}}\sum_{k=0}^\infty \rho^\pi(s \to x, k) \phi(x)\end{align*}
+$$ The nice rewriting above allows us to exclude the derivative of Q-value function, $\nabla_\theta Q^\pi(s, a)$. By plugging it into the objective function $J(\theta)$, we are getting the following: 
+$$\begin{aligned}
+\nabla_\theta J(\theta)
+&= \nabla_\theta V^\pi(s_0) & \scriptstyle{\text{; Starting from a random state } s_0} \\
+&= \sum_{s}\color{blue}{\sum_{k=0}^\infty \rho^\pi(s_0 \to s, k)} \phi(s) &\scriptstyle{\text{; Let }\color{blue}{\eta(s) = \sum_{k=0}^\infty \rho^\pi(s_0 \to s, k)}} \\
+&= \sum_{s}\eta(s) \phi(s) & \\
+&= \Big( {\sum_s \eta(s)} \Big)\sum_{s}\frac{\eta(s)}{\sum_s \eta(s)} \phi(s) & \scriptstyle{\text{; Normalize } \eta(s), s\in\mathcal{S} \text{ to be a probability distribution.}}\\
+&\propto \sum_s \frac{\eta(s)}{\sum_s \eta(s)} \phi(s) & \scriptstyle{\sum_s \eta(s)\text{  is a constant}} \\
+&= \sum_s d^\pi(s) \sum_a \nabla_\theta \pi_\theta(a \vert s)Q^\pi(s, a) & \scriptstyle{d^\pi(s) = \frac{\eta(s)}{\sum_s \eta(s)}\text{ is stationary distribution.}}
+\end{aligned}$$ 
+In the episodic case, the constant of proportionality $\sum_s \eta(s)$ is the average length of an episode; in the continuing case, it is 1 [@sutton]Sec. 13.2. The gradient can be further written as:
+
+$$
+\begin{aligned}\nabla_\theta J(\theta) &\propto \sum_{s \in \mathcal{S}} d^\pi(s) \sum_{a \in \mathcal{A}} Q^\pi(s, a) \nabla_\theta \pi_\theta(a \vert s)  &\\&= \sum_{s \in \mathcal{S}} d^\pi(s) \sum_{a \in \mathcal{A}} \pi_\theta(a \vert s) Q^\pi(s, a) \frac{\nabla_\theta \pi_\theta(a \vert s)}{\pi_\theta(a \vert s)} &\\&= \mathbb{E}_\pi [Q^\pi(s, a) \nabla_\theta \ln \pi_\theta(a \vert s)] & \scriptstyle{\text{; Because } (\ln x)' = 1/x}\end{aligned}
+$$
+
+Where $\mathbb{E}\_\pi$ refers to $\mathbb{E}_{s \sim d_\pi, a \sim \pi_\theta}$ when both state and action distributions follow the policy $\pi_\theta$(on policy).
+
+The policy gradient theorem lays the theoretical foundation for various policy gradient algorithms. This vanilla policy gradient update has no bias but high variance. Many following algorithms were proposed to reduce the variance while keeping the bias unchanged.
+
+$$\nabla_\theta J(\theta)  = \mathbb{E}_\pi [Q^\pi(s, a) \nabla_\theta \ln \pi_\theta(a \vert s)]$$
