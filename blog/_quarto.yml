@@ -24,6 +24,8 @@ format:
   html:
     theme: lumen
     css: styles.css
-
+include-in-header:
+  text: <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1978047478119932"
+     crossorigin="anonymous"></script>
 editor: visual
 
