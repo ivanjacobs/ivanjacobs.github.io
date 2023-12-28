@@ -22,7 +22,26 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-</style>
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
 
 
 <script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
@@ -134,8 +153,9 @@ gtag('config', 'G-LER7N2QH22', { 'anonymize_ip': true});
     <div class="quarto-title column-body">
       <h1 class="title">RA-DIT RETRIEVAL-AUGMENTED DUAL INSTRUCTION TUNING</h1>
                                 <div class="quarto-categories">
-                <div class="quarto-category">Evidence Lower Bound</div>
-                <div class="quarto-category">Intractable Inference</div>
+                <div class="quarto-category">RA-DIT</div>
+                <div class="quarto-category">LLM</div>
+                <div class="quarto-category">RAG</div>
               </div>
                   </div>
   </div>
@@ -173,7 +193,7 @@ gtag('config', 'G-LER7N2QH22', { 'anonymize_ip': true});
 
 <section id="retrieval-augmented-dual-instruction-tuning-ra-dit" class="level3">
 <h3 class="anchored" data-anchor-id="retrieval-augmented-dual-instruction-tuning-ra-dit">Retrieval-Augmented Dual Instruction Tuning (RA-DIT)</h3>
-<p>In this post, I explain the approach called Retrieval-Augmented Dual Instruction Tuning (RA-DIT) that leverages both language model (LM) fine-tuning and retriever fine-tuning to significantly boost the performance of RALMs, especially in scenarios that require access to large, external knowledge sources. The approach is based on the idea of fine-tuning a pre-trained LLM and a state-of-the-art dense retriever together, using a combination of supervised and unsupervised objectives.</p>
+<p>In this post, I explain the approach called Retrieval-Augmented Dual Instruction Tuning (RA-DIT) <span class="citation" data-cites="lin">(<a href="#ref-lin" role="doc-biblioref">Lin et al., n.d.</a>)</span> that leverages both language model (LM) fine-tuning and retriever fine-tuning to significantly boost the performance of RALMs, especially in scenarios that require access to large, external knowledge sources. The approach is based on the idea of fine-tuning a pre-trained LLM and a state-of-the-art dense retriever together, using a combination of supervised and unsupervised objectives.</p>
 <p>The authors use a retrieval-augmenting pre-trained auto-regressive language model, specifically LLAMA, in combination with a dual-encoder based retriever architecture. The retriever is initialized using DRAGON+, a state-of-the-art dual-encoder model. Let’s break down the key components and equations mentioned in the passage.</p>
 <ol type="1">
 <li><p><strong>Language Model (LLAMA):</strong></p>
@@ -297,9 +317,14 @@ The dot product of two vectors <span class="math inline">\(A = [a_1, a_2, ..., a
 <p>In summary, the passage describes a fine-tuning strategy for the retriever that incorporates LSR training, leveraging the language model for supervision. This approach aims to improve the alignment between the retriever’s output and the language model’s predictions.</p>
 
 
+
 </section>
 
-</main> <!-- /main -->
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" role="list">
+<div id="ref-lin" class="csl-entry" role="listitem">
+Lin, Xi Victoria, Xilun Chen, Mingda Chen, Weijia Shi, Maria Lomeli, Rich James, Pedro Rodriguez, et al. n.d. <span>“RA-DIT: Retrieval-Augmented Dual Instruction Tuning.”</span> <a href="https://doi.org/10.48550/arXiv.2310.01352">https://doi.org/10.48550/arXiv.2310.01352</a>.
+</div>
+</div></section></div></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {

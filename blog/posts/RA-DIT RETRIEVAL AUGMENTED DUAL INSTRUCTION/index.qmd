@@ -2,12 +2,13 @@
 title: "RA-DIT RETRIEVAL-AUGMENTED DUAL INSTRUCTION TUNING"
 author: "Ivan Jacobs"
 date: today
-categories: [Evidence Lower Bound,Intractable Inference]
+categories: [RA-DIT,LLM,RAG]
+bibliography: references.bib
 ---
 
 ### Retrieval-Augmented Dual Instruction Tuning (RA-DIT)
 
-In this post, I explain the approach called Retrieval-Augmented Dual Instruction Tuning (RA-DIT) that leverages both language model (LM) fine-tuning and retriever fine-tuning to significantly boost the performance of RALMs, especially in scenarios that require access to large, external knowledge sources. The approach is based on the idea of fine-tuning a pre-trained LLM and a state-of-the-art dense retriever together, using a combination of supervised and unsupervised objectives.
+In this post, I explain the approach called Retrieval-Augmented Dual Instruction Tuning (RA-DIT) [@lin] that leverages both language model (LM) fine-tuning and retriever fine-tuning to significantly boost the performance of RALMs, especially in scenarios that require access to large, external knowledge sources. The approach is based on the idea of fine-tuning a pre-trained LLM and a state-of-the-art dense retriever together, using a combination of supervised and unsupervised objectives.
 
 The authors use a retrieval-augmenting pre-trained auto-regressive language model, specifically LLAMA, in combination with a dual-encoder based retriever architecture. The retriever is initialized using DRAGON+, a state-of-the-art dual-encoder model. Let's break down the key components and equations mentioned in the passage.
 
