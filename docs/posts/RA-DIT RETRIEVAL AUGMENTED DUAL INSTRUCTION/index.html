@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.3.450">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Ivan Jacobs">
+<meta name="dcterms.date" content="2023-12-28">
+
+<title>Ivan Jacobs - RA-DIT RETRIEVAL-AUGMENTED DUAL INSTRUCTION TUNING</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<link href="../../profile.jpg" rel="icon" type="image/jpeg">
+<script src="../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<script async="" src="https://www.googletagmanager.com/gtag/js?id=G-LER7N2QH22"></script>
+
+<script type="text/javascript">
+
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-LER7N2QH22', { 'anonymize_ip': true});
+</script>
+<script async="" src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1978047478119932" crossorigin="anonymous"></script>
+
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<link rel="stylesheet" href="../../styles.css">
+<meta property="og:title" content="Ivan Jacobs - RA-DIT RETRIEVAL-AUGMENTED DUAL INSTRUCTION TUNING">
+<meta property="og:description" content="">
+<meta property="og:site-name" content="Ivan Jacobs">
+<meta name="twitter:title" content="Ivan Jacobs - RA-DIT RETRIEVAL-AUGMENTED DUAL INSTRUCTION TUNING">
+<meta name="twitter:description" content="">
+<meta name="twitter:card" content="summary">
+</head>
+
+<body class="nav-fixed fullcontent">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-dark ">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container">
+    <a class="navbar-brand" href="../../index.html">
+    <span class="navbar-title">Ivan Jacobs</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../about.html" rel="" target="">
+ <span class="menu-text">About</span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://twitter.com/IvanJac20353450" rel="" target=""><i class="bi bi-twitter" role="img">
+</i> 
+ <span class="menu-text"></span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://www.linkedin.com/in/ivanjacobs/" rel="" target=""><i class="bi bi-linkedin" role="img">
+</i> 
+ <span class="menu-text"></span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/ivanjacobs" rel="" target=""><i class="bi bi-github" role="img">
+</i> 
+ <span class="menu-text"></span></a>
+  </li>  
+</ul>
+            <div class="quarto-navbar-tools">
+</div>
+          </div> <!-- /navcollapse -->
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<header id="title-block-header" class="quarto-title-block default page-columns page-full">
+  <div class="quarto-title-banner page-columns page-full">
+    <div class="quarto-title column-body">
+      <h1 class="title">RA-DIT RETRIEVAL-AUGMENTED DUAL INSTRUCTION TUNING</h1>
+                                <div class="quarto-categories">
+                <div class="quarto-category">Evidence Lower Bound</div>
+                <div class="quarto-category">Intractable Inference</div>
+              </div>
+                  </div>
+  </div>
+    
+  
+  <div class="quarto-title-meta">
+
+      <div>
+      <div class="quarto-title-meta-heading">Author</div>
+      <div class="quarto-title-meta-contents">
+               <p>Ivan Jacobs </p>
+            </div>
+    </div>
+      
+      <div>
+      <div class="quarto-title-meta-heading">Published</div>
+      <div class="quarto-title-meta-contents">
+        <p class="date">December 28, 2023</p>
+      </div>
+    </div>
+    
+      
+    </div>
+    
+  
+  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    
+<!-- main -->
+<main class="content quarto-banner-title-block" id="quarto-document-content">
+
+
+
+
+<section id="retrieval-augmented-dual-instruction-tuning-ra-dit" class="level3">
+<h3 class="anchored" data-anchor-id="retrieval-augmented-dual-instruction-tuning-ra-dit">Retrieval-Augmented Dual Instruction Tuning (RA-DIT)</h3>
+<p>In this post, I explain the approach called Retrieval-Augmented Dual Instruction Tuning (RA-DIT) that leverages both language model (LM) fine-tuning and retriever fine-tuning to significantly boost the performance of RALMs, especially in scenarios that require access to large, external knowledge sources. The approach is based on the idea of fine-tuning a pre-trained LLM and a state-of-the-art dense retriever together, using a combination of supervised and unsupervised objectives.</p>
+<p>The authors use a retrieval-augmenting pre-trained auto-regressive language model, specifically LLAMA, in combination with a dual-encoder based retriever architecture. The retriever is initialized using DRAGON+, a state-of-the-art dual-encoder model. Let’s break down the key components and equations mentioned in the passage.</p>
+<ol type="1">
+<li><p><strong>Language Model (LLAMA):</strong></p>
+<ul>
+<li>The language model used is LLAMA, a family of open-sourced language models pre-trained on trillions of tokens (Brown et al., 2020).</li>
+<li>It is a retrieval-augmenting pre-trained auto-regressive language model.</li>
+</ul></li>
+<li><p><strong>Retriever Architecture:</strong></p>
+<ul>
+<li>The retriever adopts a dual-encoder based architecture, known for its ease of fine-tuning and efficiency at the inference stage (Lewis et al., 2020; Izacard et al., 2022b; Shi et al., 2023b).</li>
+</ul></li>
+<li><p><strong>Document and Query Encoders:</strong></p>
+<ul>
+<li>Given a corpus <span class="math inline">\(C\)</span> and a query <span class="math inline">\(q\)</span>, the document encoder maps each text chunk <span class="math inline">\(c\)</span> in <span class="math inline">\(C\)</span> to an embedding <span class="math inline">\(Ed(c)\)</span>.</li>
+<li>The query encoder maps the query <span class="math inline">\(q\)</span> to an embedding <span class="math inline">\(Eq(q)\)</span>.</li>
+</ul></li>
+<li><p><strong>Retrieval Process:</strong></p>
+<ul>
+<li><p>The top-k relevant text chunks for the query <span class="math inline">\(q\)</span> are retrieved based on the query-document embedding similarity.</p></li>
+<li><p>The similarity score <span class="math inline">\(s(q, c)\)</span> between the query <span class="math inline">\(q\)</span> and a document chunk <span class="math inline">\(c\)</span> is computed using the dot product of their respective embeddings: <span class="math display">\[s(q, c) = Eq(q) \cdot Ed(c)\]</span> Let’s break this down and explain how the similarity <span class="math inline">\(s(q, c)\)</span> is computed using a dot product, and provide a brief proof for the equation <span class="math inline">\(s(q, c) = Eq(q) \cdot Ed(c)\)</span>.<br>
+The dot product of two vectors <span class="math inline">\(A = [a_1, a_2, ..., a_n]\)</span> and <span class="math inline">\(B = [b_1, b_2, ..., b_n]\)</span> is given by: <span class="math inline">\(A \cdot B = a_1 \cdot b_1 + a_2 \cdot b_2 + \ldots + a_n \cdot b_n\)</span></p>
+<p>The dot product is used to compute the similarity between the query embedding <span class="math inline">\(Eq(q)\)</span> and the document embedding <span class="math inline">\(Ed(c)\)</span>. The embeddings are vectors in a high-dimensional space. It is a measure of the cosine of the angle between two vectors, and in the context of embeddings, it helps capture the semantic similarity between the query and document. Higher dot product values imply greater similarity, and the retriever uses this similarity score to retrieve relevant text chunks.</p>
+<p>The similarity <span class="math inline">\(s(q, c)\)</span> is computed as the dot product between the query embedding vector <span class="math inline">\(Eq(q)\)</span> and the document embedding vector <span class="math inline">\(Ed(c)\)</span>. This can be represented as: <span class="math inline">\(s(q, c) = Eq(q) \cdot Ed(c)\)</span></p>
+<p>Let <span class="math inline">\(Eq(q) = [eq_1, eq_2, ..., eq_k]\)</span> be the components of the query embedding vector, and <span class="math inline">\(Ed(c) = [ed_1, ed_2, ..., ed_k]\)</span> be the components of the document embedding vector. The dot product is then given by: <span class="math inline">\(s(q, c) = eq_1 \cdot ed_1 + eq_2 \cdot ed_2 + \ldots + eq_k \cdot ed_k\)</span></p>
+<p>This computation effectively measures the similarity between the query and document embeddings by multiplying their corresponding components and summing the results. If the vectors are similar, the dot product will be larger, indicating higher similarity. Conversely, if the vectors are dissimilar, the dot product will be smaller.</p></li>
+</ul></li>
+<li><p><strong>Retriever Initialization:</strong></p>
+<ul>
+<li>The retriever is initialized using DRAGON+, a state-of-the-art dual-encoder model.</li>
+<li>DRAGON+ is trained with a contrastive learning objective and large-scale data augmentation (Lin et al., 2023).</li>
+</ul>
+<p>In summary, the retriever uses dual encoders to map documents and queries into embeddings, and it retrieves relevant text chunks based on the similarity between the query and document embeddings. The initialization of the retriever is done using a high-performing model, DRAGON+, trained with a contrastive learning objective.</p></li>
+<li><p><strong>Parallel In-Context Retrieval-Augmentation:</strong></p>
+<ul>
+<li><p>Parallel In-Context Retrieval-Augmentation technique, building on the work of Shi et al.&nbsp;(2023b). This technique involves retrieving top-k relevant text chunks for a given language model prompt and augmenting the prompt with each retrieved chunk. The language model predictions are then computed in parallel, and the final output probability is a mixture of the probabilities from each augmented prompt, weighted by the chunk relevance score.</p>
+<p>Let’s break down the key components and equations mentioned in the passage:</p>
+<p><strong>Retrieval Process:</strong></p>
+<ul>
+<li>For a given language model prompt <span class="math inline">\(x\)</span>, top-k relevant text chunks <span class="math inline">\(C'\)</span> are retrieved from the corpus <span class="math inline">\(C\)</span>. Each retrieved chunk is denoted as <span class="math inline">\(c\)</span>, and <span class="math inline">\(|C'| = k\)</span>.</li>
+</ul>
+<p><strong>Augmentation:</strong></p>
+<ul>
+<li>To stay within the context window size limit, each retrieved chunk <span class="math inline">\(c\)</span> is prepended individually to the prompt <span class="math inline">\(x\)</span>.</li>
+</ul>
+<p><strong>Parallel Computation:</strong></p>
+<ul>
+<li>Language model predictions from multiple augmented prompts are computed in parallel.</li>
+</ul>
+<p><strong>Output Probability Calculation:</strong></p>
+<p>The final output probability <span class="math inline">\(p_{LM}(y|x, C')\)</span> is a mixture of the probability from each augmented prompt, weighted by the chunk relevance score.</p>
+<p><span class="math inline">\(p_{LM}(y|x, C') = \sum_{c \in C'} p_{LM}(y|c \circ x) \cdot p_{R}(c|x)\)</span> (Equation 2)</p>
+<p>where:</p>
+<ul>
+<li><span class="math inline">\(\circ\)</span> denotes sequence concatenation.</li>
+<li><span class="math inline">\(p_{LM}(y|c \circ x)\)</span> is the probability of language model predictions for the augmented prompt.</li>
+<li><span class="math inline">\(p_{R}(c|x) = \frac{e^{s(x,c)}}{\sum_{c' \in C'} e^{s(x,c')}}\)</span> is the chunk relevance score, which represents the retriever scores normalized among the top-k relevant chunks.</li>
+</ul>
+<p><strong>Explanation:</strong> The equation sums up the probabilities of language model predictions for each augmented prompt, where each prompt is formed by concatenating a retrieved chunk <span class="math inline">\(c\)</span> with the original prompt <span class="math inline">\(x\)</span>. - The probability <span class="math inline">\(p_{R}(c|x)\)</span> is the chunk relevance score, representing how relevant the retrieved chunk <span class="math inline">\(c\)</span> is to the original prompt <span class="math inline">\(x\)</span>. It is calculated by exponentiating the retriever scores and normalizing them among the top-k relevant chunks. - The final output probability is a weighted sum of these probabilities, where each term is weighted by the relevance of the corresponding retrieved chunk.</p>
+<p>In summary, the Parallel In-Context Retrieval-Augmentation technique involves retrieving relevant chunks, augmenting the prompt with each chunk, computing language model predictions in parallel, and combining the probabilities in a weighted manner based on chunk relevance scores.</p></li>
+</ul></li>
+</ol>
+<p><strong>RETRIEVAL AUGMENTED LANGUAGE MODEL FINE-TUNING</strong></p>
+<p>The approach involves incorporating in-context retrieval augmentation during the fine-tuning process. Let’s break down the key components and equations mentioned in the passage:</p>
+<ol type="1">
+<li><strong>Fine-Tuning Setup:</strong>
+<ul>
+<li>The language model is fine-tuned on selected datasets <span class="math inline">\(DL\)</span> with in-context retrieval augmentation.</li>
+<li>Each fine-tuning sequence is separated into an instruction segment <span class="math inline">\(x\)</span> and an output segment <span class="math inline">\(y\)</span>.</li>
+</ul></li>
+<li><strong>Retrieval of Relevant Text Chunks:</strong>
+<ul>
+<li>For each example <span class="math inline">\((x_i, y_i) \in DL\)</span>, the top-˜k relevant text chunks <span class="math inline">\(C_i\)</span> are retrieved based on <span class="math inline">\(x_i\)</span>.</li>
+<li>For each retrieved chunk <span class="math inline">\(c_{ij} \in C_i\)</span>, a separate fine-tuning example is created by prepending it to the instructions as a background field.</li>
+<li>This results in ˜k independent fine-tuning instances per original example: <span class="math inline">\({(c_{ij} \circ x_i, y_i) | j = 1, ..., ˜k}\)</span>.</li>
+</ul></li>
+<li><strong>Fine-Tuning Objective:</strong>
+<ul>
+<li>The language model is fine-tuned using the next-token prediction objective.</li>
+<li>The loss function <span class="math inline">\(L(DL)\)</span> is defined as the negative log likelihood of the language model predicting the output segment <span class="math inline">\(y_i\)</span> given the augmented input <span class="math inline">\(c_{ij} \circ x_i\)</span>. <span class="math display">\[L(DL) = - \sum_i \sum_j \log p_{LM}(y_i|c_{ij} \circ x_i)\]</span> (Equation 3)</li>
+</ul></li>
+<li><strong>Benefits of In-Context Retrieval Augmentation:</strong>
+<ul>
+<li>In-context retrieval augmentation during fine-tuning provides a twofold benefit.
+<ul>
+<li>First, it helps the language model better utilize relevant background knowledge to make predictions.</li>
+<li>Second, it allows the language model to handle cases where even state-of-the-art retrievers may falter and return inaccurate results. Training the language model to make correct predictions in such cases enables it to ignore misleading retrieval content and rely on its parametric knowledge.</li>
+</ul></li>
+</ul></li>
+</ol>
+<p><strong>Explanation:</strong></p>
+<p>The fine-tuning process involves extending each training example by incorporating relevant background information retrieved from the corpus. - The fine-tuning objective is to minimize the negative log likelihood of the language model’s predictions for the output segment, given the augmented input. - The strategy helps the language model adapt to utilize relevant background knowledge during prediction and handle cases where retrieved information might be incorrect or misleading.</p>
+<p>In summary, the fine-tuning strategy with in-context retrieval augmentation enhances the language model’s ability to utilize retrieved information by adapting to relevant background knowledge and handling inaccuracies in retrieval content. The empirical efficacy of this approach is demonstrated in §5.1 of the document.</p>
+<p><strong>RETRIEVER FINE-TUNING</strong> The process of fine-tuning the retriever to align its output with the language model by leveraging a generalized version of LSR (LM-Supervised Retrieval) training. The goal is to use the language model itself to provide supervision for retriever fine-tuning. Let’s break down the key components and equations mentioned in the passage:</p>
+<ol type="1">
+<li><strong>Generalized LSR Training:</strong>
+<ul>
+<li>LSR (LM-Supervised Retrieval) training is a method that utilizes the language model to provide supervision for retriever fine-tuning.</li>
+<li>A generalized version of LSR training is adopted.</li>
+</ul></li>
+<li><strong>LSR Score Calculation:</strong>
+<ul>
+<li>For a training sample <span class="math inline">\((x, y)\)</span> in the retriever fine-tuning dataset <span class="math inline">\(DR\)</span>, the LSR score for a retrieved chunk <span class="math inline">\(c\)</span> is defined as: <span class="math inline">\(p_{LSR}(c|x, y) = \frac{\sum_{c' \in C} \exp\left(\frac{pLM(y|c' \circ x)}{\tau}\right)}{\sum_{c' \in C'} \exp\left(\frac{pLM(y|c' \circ x)}{\tau}\right)}\)</span> (Equation 4) where:
+<ul>
+<li><span class="math inline">\(\tau\)</span> is a temperature hyperparameter.</li>
+<li><span class="math inline">\(C' \subset C\)</span> denotes the top-k retrieved chunks for <span class="math inline">\(x\)</span>.</li>
+</ul></li>
+<li>A higher LSR score indicates that <span class="math inline">\(c\)</span> is more effective at improving the language model’s chance of predicting the correct answer.</li>
+</ul></li>
+<li><strong>Training Objective:</strong>
+<ul>
+<li>The training objective is to minimize the Kullback-Leibler (KL) divergence between the retriever scores <span class="math inline">\(p_{R}(c|x)\)</span> (defined in Eq. 2) and the LSR scores <span class="math inline">\(p_{LSR}(c|x, y)\)</span>: <span class="math display">\[L(D_R) = \mathbb{E}_{(x, y) \in D_R} \text{KL}\left[p_{R}(c|x) \, \|\, p_{LSR}(c|x, y)\right]\]</span> (Equation 5)</li>
+</ul></li>
+<li><strong>Update Strategy:</strong>
+<ul>
+<li>In practice, only the query encoder of the retriever is updated during fine-tuning, as updating both encoders is found to hurt performance (as mentioned in §5.1).</li>
+</ul></li>
+</ol>
+<p><strong>Explanation:</strong></p>
+<p>LSR score computation involves normalizing the exponential of language model prediction scores for retrieved chunks by the temperature parameter <span class="math inline">\(\tau\)</span>.</p>
+<p>The goal of LSR training is for the retriever to assign higher scores to chunks that can improve the language model’s likelihood of generating the correct answer. - The training objective, expressed as the KL divergence, measures the difference between the retriever scores and the LSR scores. Minimizing this divergence encourages the retriever to align its outputs with the language model’s predictions. - The update is performed only on the query encoder of the retriever during fine-tuning, as updating both encoders negatively impacts performance.</p>
+<p>In summary, the passage describes a fine-tuning strategy for the retriever that incorporates LSR training, leveraging the language model for supervision. This approach aims to improve the alignment between the retriever’s output and the language model’s predictions.</p>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>
