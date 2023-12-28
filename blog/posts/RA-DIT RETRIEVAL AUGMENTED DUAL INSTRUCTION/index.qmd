@@ -99,7 +99,77 @@ The approach involves incorporating in-context retrieval augmentation during the
 4.  **Benefits of In-Context Retrieval Augmentation:**
     -   In-context retrieval augmentation during fine-tuning provides a twofold benefit.
         -   First, it helps the language model better utilize relevant background knowledge to make predictions.
+
         -   Second, it allows the language model to handle cases where even state-of-the-art retrievers may falter and return inaccurate results. Training the language model to make correct predictions in such cases enables it to ignore misleading retrieval content and rely on its parametric knowledge.
+
+
+Here is a vanilla implementation of the fine-tuning process with in-context retrieval augmentation in PyTorch:
+
+``` python
+import torch
+import torch.nn as nn
+from torch.utils.data import Dataset, DataLoader
+from transformers import AutoTokenizer, AutoModelForSequenceClassification, TrainingArguments
+# Load the pre-trained language model and tokenizer
+model = AutoModelForSequenceClassification.from_pretrained('bert-base-uncased')
+tokenizer = AutoTokenizer.from_pretrained('bert-base-uncased')
+# Define the dataset and data loader
+class FineTuningDataset(Dataset):
+    def __init__(self, texts, labels):
+        self.texts = texts
+        self.labels = labels
+    def __len__(self):
+        return len(self.texts)
+    def __getitem__(self, index):
+        text = self.texts[index]
+        label = self.labels[index]
+        return {
+            'text': tokenizer.encode(text, return_tensors='pt'),
+            'label': torch.tensor(label, dtype=torch.long)
+        }
+def get_relevant_text_chunks(texts, k):
+    # Use a retrieval model to retrieve the top-k relevant text chunks
+    # and return a set of vectors representing the relevant text chunks
+    pass
+# Fine-tune the language model
+training_args = TrainingArguments(
+    output_dir='./results',
+    num_train_epochs=3,
+    per_device_train_batch_size=16,
+    per_device_eval_batch_size=64,
+    evaluation_strategy='epoch',
+    learning_rate=5e-5,
+    save_total_limit=2,
+    save_steps=500,
+    load_best_model_at_end=True,
+    metric_for_best_model='accuracy',
+    greater_is_better=True,
+    save_strategy='steps',
+    save_on_each_node=True,
+)
+data_loader = DataLoader(FineTuningDataset(train_texts, train_labels), batch_size=training_args.per_device_train_batch_size, shuffle=True)
+for epoch in range(training_args.num_train_epochs):
+    model.train()
+    for batch in data_loader:
+        text = batch['text'].to(device)
+        label = batch['label'].to(device)
+        optimizer.zero_grad()
+        outputs = model(text)
+        loss = nn.CrossEntropyLoss()(outputs, label)
+        loss.backward()
+        optimizer.step()
+    # Compute the loss for the fine-tuning instances
+    total_loss = 0
+    for batch in data_loader:
+        text = batch['text'].to(device)
+        label = batch['label'].to(device)
+        outputs = model(text)
+        loss = nn.CrossEntropyLoss()(outputs, label)
+        total_loss += loss.item()
+    print(f'Epoch {epoch+1}, Loss: {total_loss / len(data_loader)}')
+```
+
+In this implementation, we first load the pre-trained language model and tokenizer. We then define a custom dataset class `FineTuningDataset` to store the training data, and create a data loader from the dataset. We define a function `get_relevant_text_chunks` to retrieve the top-$k$ relevant text chunks for each example, and use the retrieved chunks to create separate fine-tuning instances. We then fine-tune the language model using the next-token prediction objective, and compute the loss for the fine-tuning instances. Note that the implementation above is a simplified version of the original approach, and may not be directly applicable to all scenarios. The original approach may involve additional preprocessing steps, such as tokenization and padding, and may use different retrieval models and evaluation metrics.
 
 **Explanation:**
 
