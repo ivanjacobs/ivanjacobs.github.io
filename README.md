@@ -1,4 +1,4 @@
-Hi 👋 I’m Vice President/ Head, Capability Development – Artificial Intelligence, Cyber @ ST-Engineering Singapore.
+Hi  👋 I’m Vice President/ Head, Capability Development – Artificial Intelligence, Cyber @ ST-Engineering Singapore.
 
 I have 22 years’ experience as Computer Scientist and Data Scientist 18 of which in the European Institutions. I completed a Master of Data Science at Rochester Institute of Technology (RIT) and have followed multiple professional education paths to acquire the needed knowledge and skills. Since 2008 I have been delivering A.I. consulting all over the world in the areas of Physical Security, Telecom, Communication, Cyber Security, Industry, Robotics, Naval Solutions and Public Sector. 
 In May 2024, I completed the Doctor of Philosophy - PhD at Swiss School of Business Research with distinction, focusing on the intersection of disruptive innovation and artificial intelligence (AI) through a paradigm for collaborative decision-making and problem-solving between humans and AI and a framework for job redefinition and automation.
