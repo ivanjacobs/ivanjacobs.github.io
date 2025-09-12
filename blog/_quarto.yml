@@ -3,6 +3,7 @@ project:
   output-dir: ../docs
 
 website:
+
   favicon: profile.jpg
   image: profile.jpg
   twitter-card: true
