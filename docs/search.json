@@ -11,7 +11,7 @@
     "href": "index.html",
     "title": "Posts",
     "section": "",
-    "text": "Order By\n       Default\n         \n          Title\n        \n         \n          Date - Oldest\n        \n         \n          Date - Newest\n        \n         \n          Author\n        \n     \n  \n    \n      \n      \n    \n\n\n\n\n\n\n\n\n\n\nArtificial Intelligence and the Shifting Balance of Power\n\n\n\n\n\n\nArtificial Intelligence\n\n\n\n\n\n\n\n\n\nSep 13, 2025\n\n\nIvan Jacobs\n\n\n\n\n\n\n\n\n\n\n\n\nIntractable inference problems\n\n\n\n\n\n\nEvidence Lower Bound\n\n\nIntractable Inference\n\n\n\n\n\n\n\n\n\nMar 2, 2023\n\n\nIvan Jacobs\n\n\n\n\n\n\n\n\n\n\n\n\nSolving Inverse Problems with score based generative modeling\n\n\n\n\n\n\nSolving Inverse Problems\n\n\n\n\n\n\n\n\n\nMar 2, 2023\n\n\nIvan Jacobs\n\n\n\n\n\n\n\n\n\n\n\n\nPublication:In silico Antibody-Peptide Epitope prediction for Personalized cancer therapy\n\n\n\n\n\n\nPersonalized therapy\n\n\nnetworks\n\n\nmachine learning\n\n\n\n\n\n\n\n\n\nMar 2, 2023\n\n\nIvan Jacobs\n\n\n\n\n\n\n\n\n\n\n\n\nAre tumors patient specific\n\n\n\n\n\n\nPersonalized therapy\n\n\nnetworks\n\n\nmachine learning\n\n\ndeep learning\n\n\n\n\n\n\n\n\n\nInvalid Date\n\n\nIvan Jacobs\n\n\n\n\n\n\n\n\n\n\n\n\nRA-DIT RETRIEVAL-AUGMENTED DUAL INSTRUCTION TUNING\n\n\n\n\n\n\nRA-DIT\n\n\nLLM\n\n\nRAG\n\n\n\n\n\n\n\n\n\nSep 13, 2025\n\n\nIvan Jacobs\n\n\n\n\n\n\n\n\n\n\n\n\nPolicy gradient methods\n\n\n\n\n\n\nReinforcement Learning\n\n\nReinforce\n\n\nPolicy gradient methods\n\n\nPolicy approximations\n\n\n\n\n\n\n\n\n\nMar 2, 2023\n\n\nIvan Jacobs\n\n\n\n\n\n\nNo matching items"
+    "text": "Order By\n       Default\n         \n          Title\n        \n         \n          Date - Oldest\n        \n         \n          Date - Newest\n        \n         \n          Author\n        \n     \n  \n    \n      \n      \n    \n\n\n\n\n\n\n\n\n\n\nAI, Cybersecurity, and Superforecasting: What the Next Year Holds\n\n\n\n\n\n\nArtificial Intelligence\n\n\nCybersecurity\n\n\n\n\n\n\n\n\n\nInvalid Date\n\n\nYour Name\n\n\n\n\n\n\n\n\n\n\n\n\nArtificial Intelligence and the Shifting Balance of Power\n\n\n\n\n\n\nArtificial Intelligence\n\n\n\n\n\n\n\n\n\nSep 13, 2025\n\n\nIvan Jacobs\n\n\n\n\n\n\n\n\n\n\n\n\nIntractable inference problems\n\n\n\n\n\n\nEvidence Lower Bound\n\n\nIntractable Inference\n\n\n\n\n\n\n\n\n\nMar 2, 2023\n\n\nIvan Jacobs\n\n\n\n\n\n\n\n\n\n\n\n\nSolving Inverse Problems with score based generative modeling\n\n\n\n\n\n\nSolving Inverse Problems\n\n\n\n\n\n\n\n\n\nMar 2, 2023\n\n\nIvan Jacobs\n\n\n\n\n\n\n\n\n\n\n\n\nPublication:In silico Antibody-Peptide Epitope prediction for Personalized cancer therapy\n\n\n\n\n\n\nPersonalized therapy\n\n\nnetworks\n\n\nmachine learning\n\n\n\n\n\n\n\n\n\nMar 2, 2023\n\n\nIvan Jacobs\n\n\n\n\n\n\n\n\n\n\n\n\nAre tumors patient specific\n\n\n\n\n\n\nPersonalized therapy\n\n\nnetworks\n\n\nmachine learning\n\n\ndeep learning\n\n\n\n\n\n\n\n\n\nInvalid Date\n\n\nIvan Jacobs\n\n\n\n\n\n\n\n\n\n\n\n\nRA-DIT RETRIEVAL-AUGMENTED DUAL INSTRUCTION TUNING\n\n\n\n\n\n\nRA-DIT\n\n\nLLM\n\n\nRAG\n\n\n\n\n\n\n\n\n\nSep 14, 2025\n\n\nIvan Jacobs\n\n\n\n\n\n\n\n\n\n\n\n\nPolicy gradient methods\n\n\n\n\n\n\nReinforcement Learning\n\n\nReinforce\n\n\nPolicy gradient methods\n\n\nPolicy approximations\n\n\n\n\n\n\n\n\n\nMar 2, 2023\n\n\nIvan Jacobs\n\n\n\n\n\n\nNo matching items"
   },
   {
     "objectID": "posts/Intractable inference problems/index.html",
@@ -159,5 +159,61 @@
     "title": "Artificial Intelligence and the Shifting Balance of Power",
     "section": "",
     "text": "Using the causal graph as a lens, we can anticipate the next three years of AI:\n\nTechnological maturation: Advanced reasoning and planning algorithms integrated with LLMs will handle increasingly complex problems autonomously.\nBusiness adoption acceleration: Enterprises across healthcare, finance, transportation, and beyond will integrate AI as a strategic capability, not just a tool.\nInvestment-driven growth: Significant R&D, cloud compute expansion, and talent acquisition will reinforce AI’s competitive advantage.\nRisk mitigation: Ethical, regulatory, and security frameworks will evolve alongside AI deployment, improving trust and market acceptance.\nStrategic differentiation: Companies that align AI with business strategy, human oversight, and operational goals will dominate their markets."
+  },
+  {
+    "objectID": "posts/AI, Cybersecurity and Superforecasting What the Next Year Holds/index.html",
+    "href": "posts/AI, Cybersecurity and Superforecasting What the Next Year Holds/index.html",
+    "title": "AI, Cybersecurity, and Superforecasting: What the Next Year Holds",
+    "section": "",
+    "text": "The rapid evolution of Artificial Intelligence (AI) presents both transformative opportunities and complex risks.\nThe 2024 CCAPAC Report on AI and Cybersecurity highlighted how Asia-Pacific economies are at the forefront of AI adoption while also being exposed to new forms of cyber risk.\nAt the same time, advances in AI capabilities—from foundation models to reasoning techniques like Chain-of-Thought and Graph of Thoughts—are pushing the frontier of what AI systems can achieve.\nTo explore the near-term future of AI, this article merges insights from the CCAPAC report with a causal graph of technological capabilities, limitations, advancements, business drivers, and risks. Using superforecasting methods, we derive probabilistic predictions for where the field will be in the next 12 months."
+  },
+  {
+    "objectID": "posts/AI, Cybersecurity and Superforecasting What the Next Year Holds/index.html#foundation-models-and-multi-modal-ai",
+    "href": "posts/AI, Cybersecurity and Superforecasting What the Next Year Holds/index.html#foundation-models-and-multi-modal-ai",
+    "title": "AI, Cybersecurity, and Superforecasting: What the Next Year Holds",
+    "section": "1. Foundation Models and Multi-modal AI",
+    "text": "1. Foundation Models and Multi-modal AI\n\nPrediction: A major multi-modal foundation model (vision + text + audio) will achieve broad commercial deployment within 12 months.\n\nProbability: ~75%\n\nReasoning: Trend in GPT-4o, Gemini, and Claude Sonnet suggests rapid multi-modal rollout; compute and R&D investment are aligned."
+  },
+  {
+    "objectID": "posts/AI, Cybersecurity and Superforecasting What the Next Year Holds/index.html#agentic-ai-systems-in-industry",
+    "href": "posts/AI, Cybersecurity and Superforecasting What the Next Year Holds/index.html#agentic-ai-systems-in-industry",
+    "title": "AI, Cybersecurity, and Superforecasting: What the Next Year Holds",
+    "section": "2. Agentic AI Systems in Industry",
+    "text": "2. Agentic AI Systems in Industry\n\nPrediction: At least three Fortune 500 companies will announce production deployment of agentic AI systems (autonomous workflows integrating planning + external tools).\n\nProbability: ~65%\n\nReasoning: Demand for decision-support automation is strong in finance, logistics, and customer service; barriers are trust and reliability."
+  },
+  {
+    "objectID": "posts/AI, Cybersecurity and Superforecasting What the Next Year Holds/index.html#cybersecurity-threats-from-ai",
+    "href": "posts/AI, Cybersecurity and Superforecasting What the Next Year Holds/index.html#cybersecurity-threats-from-ai",
+    "title": "AI, Cybersecurity, and Superforecasting: What the Next Year Holds",
+    "section": "3. Cybersecurity Threats from AI",
+    "text": "3. Cybersecurity Threats from AI\n\nPrediction: A high-profile cyber incident involving generative AI (e.g., deepfake-enabled fraud or AI-powered phishing at scale) will occur in Asia-Pacific.\n\nProbability: ~70%\n\nReasoning: CCAPAC identifies these as immediate risks; attack surface is growing faster than defensive maturity."
+  },
+  {
+    "objectID": "posts/AI, Cybersecurity and Superforecasting What the Next Year Holds/index.html#regulatory-response",
+    "href": "posts/AI, Cybersecurity and Superforecasting What the Next Year Holds/index.html#regulatory-response",
+    "title": "AI, Cybersecurity, and Superforecasting: What the Next Year Holds",
+    "section": "4. Regulatory Response",
+    "text": "4. Regulatory Response\n\nPrediction: At least two Asia-Pacific governments will update national cybersecurity strategies with explicit AI-focused provisions.\n\nProbability: ~80%\n\nReasoning: Following Singapore, Japan, and South Korea, other APAC nations will move quickly due to both opportunity and risk."
+  },
+  {
+    "objectID": "posts/AI, Cybersecurity and Superforecasting What the Next Year Holds/index.html#reasoning-breakthroughs",
+    "href": "posts/AI, Cybersecurity and Superforecasting What the Next Year Holds/index.html#reasoning-breakthroughs",
+    "title": "AI, Cybersecurity, and Superforecasting: What the Next Year Holds",
+    "section": "5. Reasoning Breakthroughs",
+    "text": "5. Reasoning Breakthroughs\n\nPrediction: Methods like Tree of Thought (ToT), Graph of Thoughts (GoT), or verification + refinement loops will become standard components of commercial LLM frameworks.\n\nProbability: ~60%\n\nReasoning: Academic prototypes exist; adoption depends on computational cost vs. commercial benefit."
+  },
+  {
+    "objectID": "posts/AI, Cybersecurity and Superforecasting What the Next Year Holds/index.html#public-trust-and-acceptance",
+    "href": "posts/AI, Cybersecurity and Superforecasting What the Next Year Holds/index.html#public-trust-and-acceptance",
+    "title": "AI, Cybersecurity, and Superforecasting: What the Next Year Holds",
+    "section": "6. Public Trust and Acceptance",
+    "text": "6. Public Trust and Acceptance\n\nPrediction: Public trust in AI will decline slightly due to visible misuse (deepfakes, biased outputs), even as corporate adoption grows.\n\nProbability: ~65%\n\nReasoning: Trust erosion often lags adoption; governments will respond with stronger ethical and security guidelines."
+  },
+  {
+    "objectID": "posts/AI, Cybersecurity and Superforecasting What the Next Year Holds/index.html#scenario-analysis-one-year-outlook",
+    "href": "posts/AI, Cybersecurity and Superforecasting What the Next Year Holds/index.html#scenario-analysis-one-year-outlook",
+    "title": "AI, Cybersecurity, and Superforecasting: What the Next Year Holds",
+    "section": "Scenario Analysis: One-Year Outlook",
+    "text": "Scenario Analysis: One-Year Outlook\nSuperforecasting is not only about assigning probabilities but also about imagining plausible scenarios.\nHere we outline three contrasting narratives for AI and cybersecurity over the next 12 months.\n\n\n\n\n\n\n\n\n\nScenario\nDescription\nLikelihood\nImplications\n\n\n\n\nBest Case\nBreakthroughs in multi-modal and reasoning methods lead to rapid adoption of secure, agentic AI systems. Governments act quickly on regulation, and trust in AI grows.\n~20%\nProductivity gains accelerate, Asia-Pacific emerges as a global leader in secure AI deployment.\n\n\nBase Case\nAI capabilities (multi-modal + agentic) expand, but cybersecurity incidents and misuse (deepfakes, bias) undermine public trust. Governments update policies reactively.\n~60%\nAdoption continues but unevenly, with stricter regulations and selective industry wins.\n\n\nWorst Case\nHigh-profile AI-driven cyberattacks erode trust, regulatory backlash stalls innovation, and reasoning methods fail to mature fast enough.\n~20%\nSlowed adoption, fragmented markets, and delayed realization of AI-driven productivity gains.\n\n\n\nThe base case remains the most likely, reflecting strong technological progress but tempered by cybersecurity and governance challenges."
   }
 ]
